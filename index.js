@@ -1,11 +1,18 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 // set up express app
 const app = express();
 
 //set up static files
 app.use(express.static('public'));
+
+//connect to mongodb
+var promise = mongoose.connect('mongodb://localhost/diarygo', {
+    useMongoClient: true
+});
+mongoose.Promise = global.Promise;
 
 // use body-parser middleware
 app.use(bodyParser.json());

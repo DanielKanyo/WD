@@ -1,24 +1,28 @@
 const express = require('express');
 const router = express.Router();
+const Diary = require('../models/diary');
 
 // get data from db
-router.get('/data', function (req, res) {
+router.get('/diary', function (req, res) {
   res.send({ type: 'GET' });
 });
 
 // add new data to the db
-router.post('/data', function (req, res) {
-  console.log(req.body);
-  res.send({ type: 'POST' });
+router.post('/diary', function (req, res) {
+  // var diary = new Diary(req.body);
+  // diary.save();
+  Diary.create(req.body).then(function(diary) {
+    res.send(diary);
+  }); 
 });
 
 // update data in the db
-router.put('/data/:id', function (req, res) {
+router.put('/diary/:id', function (req, res) {
   res.send({ type: 'PUT' });
 });
 
 // delete data from the db
-router.delete('/data/:id', function (req, res) {
+router.delete('/diary/:id', function (req, res) {
   res.send({ type: 'DELETE' });
 });
 
