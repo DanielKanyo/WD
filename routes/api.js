@@ -2,28 +2,29 @@ const express = require('express');
 const router = express.Router();
 const Diary = require('../models/diary');
 
-// get data from db
-router.get('/diary', function (req, res) {
+// GET data from db
+router.get('/diary', (req, res, next) => {
   res.send({ type: 'GET' });
 });
 
-// add new data to the db
-router.post('/diary', function (req, res) {
-  // var diary = new Diary(req.body);
-  // diary.save();
-  Diary.create(req.body).then(function(diary) {
+// ADD NEW data to the db
+//next piece of middleware will be the error handling
+router.post('/diary', (req, res, next) => {
+  Diary.create(req.body).then((diary) => {
     res.send(diary);
-  }); 
+  }).catch(next); 
 });
 
-// update data in the db
-router.put('/diary/:id', function (req, res) {
+// UPDATE data in the db
+router.put('/diary/:id', (req, res, next) => {
   res.send({ type: 'PUT' });
 });
 
-// delete data from the db
-router.delete('/diary/:id', function (req, res) {
-  res.send({ type: 'DELETE' });
+// DELETE data from the db
+router.delete('/diary/:id', (req, res, next) => {
+  Diary.findByIdAndRemove({_id:  req.params.id}).then( (diary) => {
+    res.send(diary);
+  });
 });
 
 module.exports = router;
