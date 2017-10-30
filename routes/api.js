@@ -4,7 +4,10 @@ const Diary = require('../models/diary');
 
 //GET data from db
 router.get('/diary', (req, res, next) => {
-  res.send({ type: 'GET' });
+  var data = [];
+  Diary.find({}).then( (diary) => {
+    res.send(diary);
+  });
 });
 
 //ADD NEW data to the db
