@@ -4,7 +4,6 @@ const Diary = require('../models/diary');
 
 //GET data from db
 router.get('/diary', (req, res, next) => {
-  var data = [];
   Diary.find({}).then( (diary) => {
     res.send(diary);
   });

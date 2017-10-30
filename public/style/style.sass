@@ -1,0 +1,103 @@
+$charcoal: #404040
+$charcoal-darker: #282828
+$paper-gold: #CCBE97
+$paper: #F6F6F6
+$silk: #E4DACE
+$blue: #1dbee2
+
+body
+  margin: 0
+  padding: 0
+  font-family: 'Hind Siliguri', sans-serif
+  color: $paper
+  background: $charcoal-darker
+
+#header-container
+  width: 100%
+  background: $charcoal-darker
+  height: 50px
+  position: fixed
+  z-index: 11
+  -webkit-box-shadow: 0px 0px 42px -2px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 42px -2px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 42px -2px rgba(0,0,0,0.75);
+
+.title
+  width: 150px
+  text-align: center
+  background: none
+  margin-left: 20px
+  position: relative
+  color: $paper
+  height: 50px
+  line-height: 50px
+  float: left
+
+.tooltip 
+  padding-top: 0px !important
+  padding-left: 10px !important
+  padding-right: 10px !important
+  padding-bottom: 0px !important
+
+.menuBtn
+  float: right
+  border: none
+  height: 50px
+  outline: none
+  color: $paper
+  background: none
+  padding: 0px 20px
+  font-family: 'Hind Siliguri', sans-serif
+
+.menuBtn:hover
+  background: $charcoal
+  cursor: pointer
+
+.LoginBtn
+  margin-right: 20px
+
+.content
+  position: absolute
+  width: 100% 
+  top: 50px
+  z-index: 10 !important
+
+.slideContent
+  height: calc(100vh - 50px)
+
+.diaryContent
+  background: transparent
+
+.aboutContent
+  background: transparent
+
+.loginContent
+  background: transparent
+
+.menuBtnIcon
+  float: left
+  height: 50px
+  fill: $paper
+  padding-right: 10px
+
+.menuBtnIconActive
+  float: left
+  height: 50px
+  fill: $blue
+  padding-right: 10px
+
+.menuBtnText
+  float: left
+  height: 50px
+  line-height: 50px
+
+.separator
+  width: 1px
+  margin: 15px 0px 15px 0px
+  height: 20px
+  float: right
+  background: $blue
+
+.selected
+  fill: $blue
+  color: $blue

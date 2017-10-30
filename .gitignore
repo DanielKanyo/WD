@@ -1,1 +1,4 @@
 node_modules
+public/function/bundle.js
+public/css/*.css
+package-lock.json
