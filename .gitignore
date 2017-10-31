@@ -1,4 +1,4 @@
 node_modules
 public/script/bundle.js
-public/css/*.css
+public/style/*.css
 package-lock.json
