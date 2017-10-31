@@ -3,8 +3,9 @@ import React from 'react';
 import ReactTooltip from 'react-tooltip';
 /** icons */
 import InformationOutlineIcon from 'mdi-react/InformationOutlineIcon';
-import BookOpenVariantIcon from 'mdi-react/BookOpenVariantIcon';
+import BookIcon from 'mdi-react/BookIcon';
 import TumblrReblogIcon from 'mdi-react/TumblrReblogIcon';
+import ChartLineIcon from 'mdi-react/ChartLineIcon';
 
 class Header extends React.Component {
   constructor(props) {
@@ -42,12 +43,21 @@ class Header extends React.Component {
         <div className="menu">
 
           <button className="menuBtn LoginBtn" onClick={function () {
-            this.handleUpdateIndexView(2);
+            this.handleUpdateIndexView(3);
             this.changeClass('login')
           }.bind(this)
           }>
             <TumblrReblogIcon className={"menuBtnIcon loginIco " + selectedIcon["login"]} />
             <div className={"menuBtnText " + selectedIcon["login"]}>Login</div>
+          </button>
+
+          <button className="menuBtn DiagramBtn" onClick={function () {
+            this.handleUpdateIndexView(2);
+            this.changeClass('diagram')
+          }.bind(this)
+          }>
+            <ChartLineIcon className={"menuBtnIcon " + selectedIcon["diagram"]} />
+            <div className={"menuBtnText " + selectedIcon["diagram"]}>Statistics</div>
           </button>
 
           <button className="menuBtn AboutBtn" onClick={function () {
@@ -64,7 +74,7 @@ class Header extends React.Component {
             this.changeClass('diary')
           }.bind(this)
           }>
-            <BookOpenVariantIcon className={"menuBtnIcon " + selectedIcon["diary"]} />
+            <BookIcon className={"menuBtnIcon " + selectedIcon["diary"]} />
             <div className={"menuBtnText " + selectedIcon["diary"]}>Diary</div>
           </button>
 
