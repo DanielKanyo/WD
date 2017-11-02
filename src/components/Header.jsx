@@ -6,6 +6,7 @@ import InformationOutlineIcon from 'mdi-react/InformationOutlineIcon';
 import BookIcon from 'mdi-react/BookIcon';
 import TumblrReblogIcon from 'mdi-react/TumblrReblogIcon';
 import ChartLineIcon from 'mdi-react/ChartLineIcon';
+import CalendarIcon from 'mdi-react/CalendarIcon';
 
 class Header extends React.Component {
   constructor(props) {
@@ -41,16 +42,25 @@ class Header extends React.Component {
       <div id="header-container">
         <div className="title">Work Diary!</div>
         <div className="menu">
-
+          {/* LOGIN BUTTON */}
           <button className="menuBtn LoginBtn" onClick={function () {
-            this.handleUpdateIndexView(3);
+            this.handleUpdateIndexView(4);
             this.changeClass('login')
           }.bind(this)
           }>
             <TumblrReblogIcon className={"menuBtnIcon loginIco " + selectedIcon["login"]} />
             <div className={"menuBtnText " + selectedIcon["login"]}>Login</div>
           </button>
-
+          {/* THROWBACK BUTTON */}
+          <button className="menuBtn ThrowbackBtn" onClick={function () {
+            this.handleUpdateIndexView(3);
+            this.changeClass('throwback')
+          }.bind(this)
+          }>
+            <CalendarIcon className={"menuBtnIcon throwbackIco " + selectedIcon["throwback"]} />
+            <div className={"menuBtnText " + selectedIcon["throwback"]}>Throwback</div>
+          </button>
+          {/* DIAGRAM BUTTON */}
           <button className="menuBtn DiagramBtn" onClick={function () {
             this.handleUpdateIndexView(2);
             this.changeClass('diagram')
@@ -59,7 +69,7 @@ class Header extends React.Component {
             <ChartLineIcon className={"menuBtnIcon " + selectedIcon["diagram"]} />
             <div className={"menuBtnText " + selectedIcon["diagram"]}>Statistics</div>
           </button>
-
+          {/* ABOUT BUTTON */}
           <button className="menuBtn AboutBtn" onClick={function () {
             this.handleUpdateIndexView(1);
             this.changeClass('about')
@@ -68,7 +78,7 @@ class Header extends React.Component {
             <InformationOutlineIcon className={"menuBtnIcon " + selectedIcon["about"]} />
             <div className={"menuBtnText " + selectedIcon["about"]}>About</div>
           </button>
-
+          {/* DIARY BUTTON */}
           <button className="menuBtn DiaryBtn" onClick={function () {
             this.handleUpdateIndexView(0);
             this.changeClass('diary')
@@ -79,6 +89,10 @@ class Header extends React.Component {
           </button>
 
         </div>
+
+        <div className="datepicker">DatePicker</div>
+
+        <ReactTooltip effect="solid" place="bottom" />
       </div>
     );
   }

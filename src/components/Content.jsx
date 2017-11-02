@@ -9,17 +9,20 @@ class Content extends React.Component {
   render() {
     return (
       <div className="content">
-      <SwipeableViews index={this.props.viewIndexProp} enableMouseEvents >
-        <div className="slideContent diaryContent">
+      <SwipeableViews index={this.props.viewIndexProp}>
+        <div className="slideContent">
           <Diary />
         </div>
-        <div className="slideContent aboutContent">
+        <div className="slideContent">
           about
         </div>
-        <div className="slideContent staticContent">
+        <div className="slideContent">
           statistics
         </div>
-        <div className="slideContent loginContent">
+        <div className="slideContent">
+          throwback
+        </div>
+        <div className="slideContent">
           login
         </div>
       </SwipeableViews>

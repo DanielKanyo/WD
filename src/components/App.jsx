@@ -2,6 +2,7 @@ import React from 'react';
 // Module requires
 import Header from './Header.jsx';
 import Content from './Content.jsx';
+import Footer from './Footer.jsx';
 
 // Create a component
 class App extends React.Component {
@@ -28,6 +29,7 @@ class App extends React.Component {
         <Content 
           viewIndexProp={viewIndex} 
         />
+        <Footer />
       </div>
     );
   }

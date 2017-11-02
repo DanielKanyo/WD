@@ -28,6 +28,10 @@ const DiarySchema = new Schema({
     type: String,
     required: [true, 'End time is required']
   },
+  date: {
+    type: String,
+    required: [true, 'Date is required']
+  }
 });
 
 const Diary = mongoose.model('diary', DiarySchema);
