@@ -6,6 +6,7 @@ $charcoal-light-rgba-lighter: rgba(81, 85, 89, 0.3)
 $sand-dollar: #f7f1e3
 $wood-veneer: #686060
 $blue: #00dce8
+$blue-lighter: rgba(0, 220, 232, 0.5);
 
 body
   margin: 0
@@ -91,7 +92,6 @@ body
   margin-top: 95px
   height: calc(100vh - 170px)
   background: $charcoal-dark
-  background-image: url('/images/diary_bg353.png')
   background-repeat: no-repeat
   background-position: center
   width: 100% 
@@ -129,7 +129,7 @@ body
 
 .addNewBtn 
   width: 100%
-  height: 40px
+  height: 45px
   background: $charcoal-light-rgba
   border: none
   fill: $charcoal-dark
@@ -144,7 +144,7 @@ body
 /* content INPUT */
 
 .newDiaryEntry
-  background: rgba(64, 64, 64, 0.3)
+  background: $charcoal-light-rgba-lighter
   float: left
   width: 100%
   margin-bottom: 10px
@@ -159,9 +159,71 @@ body
   margin-left: 10px
   margin-right: 10px
   float: left
+  position: relative
 
 .startTimeContainer
+  width: 11%
+
+.projectContainer
   width: 13%
+
+.productOwnerContainer
+  width: 12%
+
+.taskNumberContainer
+  width: 11%
+
+.descriptionContainer
+  width: 29%
+
+.taskNumberContainer
+
+.projectContainer *, .productOwnerContainer *,
+.taskNumberContainer *, .descriptionContainer *
+  box-sizing: border-box
+
+.newEntryIcon
+  position: absolute
+  margin-top: 5px
+  right: 0
+  width: 17px
+  fill: $blue-lighter
+
+.inputContainer:hover .newEntryIcon
+  fill: $blue
+
+.projectFolderIcon, .productOwnerIcon, .descriptionIcon
+  width: 18px
+
+.numberInput::-webkit-outer-spin-button,
+.numberInput::-webkit-inner-spin-button 
+  -webkit-appearance: none
+  margin: 0
+
+.newEntryInput
+  width: 100%
+  position: relative
+  display: inline-block
+  padding: 4px 7px
+  font-size: 13px
+  line-height: 1.5
+  color: $blue
+  background: none
+  border: none
+  border-bottom: 1px solid $blue
+  outline: none
+
+.newEntryInput::-webkit-input-placeholder
+  color: $blue-lighter
+
+.newEntryInput::-moz-placeholder
+  color: $blue-lighter
+
+.newEntryInput:-ms-input-placeholder
+  color: $blue-lighter
+
+.newEntryInput:-moz-placeholder
+  color: $blue-lighter
 
 /* FOOTER */
 
@@ -197,20 +259,18 @@ body
   background: none
   border: none
   border-bottom: 1px solid $blue
-  background-image: none
-  transition: border 0.2s cubic-bezier(0.645, 0.045, 0.355, 1), background 0.2s cubic-bezier(0.645, 0.045, 0.355, 1), box-shadow 0.2s cubic-bezier(0.645, 0.045, 0.355, 1)
 
 .rc-time-picker-input::-webkit-input-placeholder
-  color: $blue
+  color: $blue-lighter
 
 .rc-time-picker-input::-moz-placeholder
-  color: $blue
+  color: $blue-lighter
 
 .rc-time-picker-input:-ms-input-placeholder
-  color: $blue
+  color: $blue-lighter
 
 .rc-time-picker-input:-moz-placeholder
-  color: $blue
+  color: $blue-lighter
 
 
 .rc-time-picker-input[disabled] 
