@@ -6,7 +6,10 @@ $charcoal-light-rgba-lighter: rgba(81, 85, 89, 0.3)
 $sand-dollar: #f7f1e3
 $wood-veneer: #686060
 $blue: #00dce8
-$blue-lighter: rgba(0, 220, 232, 0.5);
+$blue-lighter: rgba(0, 220, 232, 0.5)
+$yellow: #ffc300
+$yellow-dark: rgba(255, 195, 0, 0.5)
+$yellow-dark-background: rgba(255, 195, 0, 0.1)
 
 body
   margin: 0
@@ -127,21 +130,33 @@ body
 .content::-webkit-scrollbar-thumb
 	background-color: $blue
 
-.addNewBtn 
+.addNewContainer
+  float: left
   width: 100%
+  margin-bottom: 15px 
+
+.addNewBtn 
+  width: 50%
+  float: left
   height: 45px
   background: $charcoal-light-rgba
   border: none
   fill: $charcoal-dark
   outline: none
 
-.addNewBtn:hover
+.pluswork:hover
   background: $charcoal-light-rgba-lighter
   fill: $blue
   cursor: pointer
   border-bottom: 1px solid $blue
 
-/* content INPUT */
+.plusluch:hover
+  background: $charcoal-light-rgba-lighter
+  fill: $yellow
+  cursor: pointer
+  border-bottom: 1px solid $yellow
+
+/* content INPUT and LUNCH */
 
 .newDiaryEntry
   background: $charcoal-light-rgba-lighter
@@ -150,36 +165,49 @@ body
   margin-bottom: 10px
   height: auto
 
+.lunchEntry
+  background: $yellow-dark-background
+
 .inputContainer
   margin: 0px 0px 5px 0px 
   height: 35px
   color: $blue
   line-height: 35px
   font-size: 13px
-  margin-left: 10px
-  margin-right: 10px
+  margin-left: 1%
   float: left
   position: relative
 
 .startTimeContainer
-  width: 11%
+  width: 10%
 
 .projectContainer
-  width: 13%
+  width: 14%
 
 .productOwnerContainer
-  width: 12%
+  width: 14%
 
 .taskNumberContainer
-  width: 11%
+  width: 12%
 
 .descriptionContainer
   width: 29%
 
 .taskNumberContainer
+  width: 10%
+
+.endTimeContainer
+  width: 10%
+
+.lunchContainer
+  width: 50%
+
+.startLunch, .endLunch
+  width: 20%
 
 .projectContainer *, .productOwnerContainer *,
-.taskNumberContainer *, .descriptionContainer *
+.taskNumberContainer *, .descriptionContainer *,
+.endTimeContainer *, .lunchContainer *
   box-sizing: border-box
 
 .newEntryIcon
@@ -187,9 +215,6 @@ body
   margin-top: 5px
   right: 0
   width: 17px
-  fill: $blue-lighter
-
-.inputContainer:hover .newEntryIcon
   fill: $blue
 
 .projectFolderIcon, .productOwnerIcon, .descriptionIcon
@@ -240,7 +265,8 @@ body
 
 /* timepicker */
 
-.rc-time-picker 
+.rc-time-picker
+  width: 100%
   display: inline-block
   box-sizing: border-box
 
@@ -272,7 +298,6 @@ body
 .rc-time-picker-input:-moz-placeholder
   color: $blue-lighter
 
-
 .rc-time-picker-input[disabled] 
   color: #ccc
   background: #f7f7f7
@@ -295,14 +320,10 @@ body
   list-style: none
   font-size: 12px
   text-align: left
-  background-color: $charcoal-dark
+  background-color: transparent
   background-clip: padding-box
   line-height: 1.5
   top: 42px
-
-  -webkit-box-shadow: 0px 0px 25px -6px rgba(0,0,0,0.75);
-  -moz-box-shadow: 0px 0px 25px -6px rgba(0,0,0,0.75);
-  box-shadow: 0px 0px 25px -6px rgba(0,0,0,0.75);
 
 .rc-time-picker-panel-narrow 
   max-width: 113px
@@ -318,16 +339,20 @@ body
   border: 1px solid transparent
 
 .rc-time-picker-panel-input-wrap 
+  width: 0 
+  height: 0
+  margin-left: 10px
+  border-left: 8px solid transparent
+  border-right: 8px solid transparent
+  border-bottom: 8px solid $charcoal-light
   box-sizing: border-box
   position: relative
-  display: none
-  padding: 6px
-  border-bottom: 1px solid #e9e9e9
 
 .rc-time-picker-panel-input-invalid 
   border-color: red
 
 .rc-time-picker-panel-clear-btn 
+  display: none
   position: absolute
   right: 6px
   cursor: pointer
@@ -357,9 +382,10 @@ body
   border: 1px solid #e9e9e9
   border-width: 0 1px
   margin-left: -1px
+  background: $charcoal-light
   box-sizing: border-box
   width: 80px
-  max-height: 144px
+  max-height: 125px
   overflow-y: auto
   overflow-x: hidden
   position: relative
@@ -369,10 +395,12 @@ body
 
 .rc-time-picker-panel-select:first-child 
   border-left: 0
+  border-right-color: rgba(64, 64, 64, 0.4)
   margin-left: 0
 
 .rc-time-picker-panel-select:last-child 
   border-right: 0
+  border-left: 0
   border-color: $charcoal-dark
 
 .rc-time-picker-panel-select ul 
@@ -393,9 +421,9 @@ body
   text-align: left
   cursor: pointer
   -webkit-user-select: none
-     -moz-user-select: none
-      -ms-user-select: none
-          user-select: none
+  -moz-user-select: none
+  -ms-user-select: none
+  user-select: none
 
 .rc-time-picker-panel-select li:hover 
   background: $wood-veneer
@@ -403,7 +431,7 @@ body
 li.rc-time-picker-panel-select-option-selected 
   background: $charcoal
   font-weight: bold
-  color: $blue
+  color: $sand-dollar
 
 li.rc-time-picker-panel-select-option-disabled 
   color: #ccc
@@ -422,5 +450,47 @@ li.rc-time-picker-panel-select-option-disabled:hover
 	background-color: rgba(64, 64, 64, 0.4)
 
 .rc-time-picker-panel-select::-webkit-scrollbar-thumb
-	background-color: $blue
+	background-color: $sand-dollar
 
+/* lunch entry */
+
+.lunchEntry .rc-time-picker-input
+  color: $yellow
+  border-bottom: 1px solid $yellow
+
+.lunchEntry .rc-time-picker-input::-webkit-input-placeholder
+  color: $yellow-dark
+
+.lunchEntry .rc-time-picker-input::-moz-placeholder
+  color: $yellow-dark
+
+.lunchEntry .rc-time-picker-input:-ms-input-placeholder
+  color: $yellow-dark
+
+.lunchEntry .rc-time-picker-input:-moz-placeholder
+  color: $yellow-dark
+
+.clockLunchIcon
+  fill: $yellow
+
+.lunchIcon
+  fill: $yellow
+
+.lunchInput
+  color: $yellow
+  border-bottom: 1px solid $yellow
+
+.lunchInput:hover
+  cursor: not-allowed
+
+.lunchInput::-webkit-input-placeholder
+  color: $yellow-dark
+
+.lunchInput::-moz-placeholder
+  color: $yellow-dark
+
+.lunchInput:-ms-input-placeholder
+  color: $yellow-dark
+
+.lunchInput:-moz-placeholder
+  color: $yellow-dark

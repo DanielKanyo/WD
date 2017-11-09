@@ -11,16 +11,20 @@ import FolderOutlineIcon from 'mdi-react/FolderOutlineIcon';
 import AccountMultipleIcon from 'mdi-react/AccountMultipleIcon';
 import PoundIcon from 'mdi-react/PoundIcon';
 import CommentTextOutlineIcon from 'mdi-react/CommentTextOutlineIcon';
-import MessageTextOutlineIcon from 'mdi-react/MessageTextOutlineIcon'; 
+import MessageTextOutlineIcon from 'mdi-react/MessageTextOutlineIcon';
+import ClockAlertIcon from 'mdi-react/ClockAlertIcon';
 
-class Input extends React.Component {
+import moment from 'moment';
+
+class InputWork extends React.Component {
   render() {
+    const now = moment().hour(8).minute(0);
     return (
       <div className={"newDiaryEntry entry" + this.props.entryIndexProp}>
         {/* start time input */}
         <div className={"inputContainer startTimeContainer start" + this.props.entryIndexProp} data-tip="Start Time...">
           <ClockIcon className="newEntryIcon clockIcon" />
-          <TimePicker placeholder="Start Time..." showSecond={false} />
+          <TimePicker placeholder="Start Time..." showSecond={false} defaultOpenValue={now} minuteStep={5} />
         </div>
         {/* project name input */}
         <div className={"inputContainer projectContainer project" + this.props.entryIndexProp} data-tip="Project name...">
@@ -42,6 +46,11 @@ class Input extends React.Component {
           <MessageTextOutlineIcon className="newEntryIcon descriptionIcon" />
           <input placeholder="Description..." type="text" className="newEntryInput descriptionInput" />
         </div>
+        {/* end time input */}
+        <div className={"inputContainer endTimeContainer end" + this.props.entryIndexProp} data-tip="End Time...">
+          <ClockAlertIcon className="newEntryIcon clockIcon" />
+          <TimePicker placeholder="End Time..." showSecond={false} defaultOpenValue={now} minuteStep={5} />
+        </div>
 
         <ReactTooltip effect="solid" place="bottom" />
       </div>
@@ -49,4 +58,4 @@ class Input extends React.Component {
   }
 }
 
-export default Input;
+export default InputWork;
