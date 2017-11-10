@@ -13,6 +13,7 @@ import PoundIcon from 'mdi-react/PoundIcon';
 import CommentTextOutlineIcon from 'mdi-react/CommentTextOutlineIcon';
 import MessageTextOutlineIcon from 'mdi-react/MessageTextOutlineIcon';
 import ClockAlertIcon from 'mdi-react/ClockAlertIcon';
+import CloseIcon from 'mdi-react/CloseIcon';
 
 import moment from 'moment';
 
@@ -50,6 +51,10 @@ class InputWork extends React.Component {
         <div className={"inputContainer endTimeContainer end" + this.props.entryIndexProp} data-tip="End Time...">
           <ClockAlertIcon className="newEntryIcon clockIcon" />
           <TimePicker placeholder="End Time..." showSecond={false} defaultOpenValue={now} minuteStep={5} />
+        </div>
+        {/* delete button */}
+        <div className={"deleteContainer delete" + this.props.entryIndexProp} data-tip="Delete Entry...">
+          <div className="del"><CloseIcon className={"deleteIcon"+ this.props.entryIndexProp} /></div>
         </div>
 
         <ReactTooltip effect="solid" place="bottom" />

@@ -9,7 +9,6 @@ $blue: #00dce8
 $blue-lighter: rgba(0, 220, 232, 0.5)
 $yellow: #ffc300
 $yellow-dark: rgba(255, 195, 0, 0.5)
-$yellow-dark-background: rgba(255, 195, 0, 0.1)
 
 body
   margin: 0
@@ -166,10 +165,10 @@ body
   height: auto
 
 .lunchEntry
-  background: $yellow-dark-background
+  background: $charcoal-light-rgba-lighter
 
 .inputContainer
-  margin: 0px 0px 5px 0px 
+  margin-bottom: 5px
   height: 35px
   color: $blue
   line-height: 35px
@@ -177,6 +176,21 @@ body
   margin-left: 1%
   float: left
   position: relative
+
+.deleteContainer 
+  height: 40px
+  background: $charcoal-light-rgba-lighter
+  float: right
+  fill: $sand-dollar
+  width: 5%
+  text-align: center
+
+.deleteContainer:hover
+  cursor: pointer
+  fill: red
+
+.del
+  margin-top: 7px 
 
 .startTimeContainer
   width: 10%
