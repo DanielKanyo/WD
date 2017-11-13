@@ -9,10 +9,16 @@ import TimePicker from 'rc-time-picker';
 import ClockIcon from 'mdi-react/ClockIcon';
 import RiceIcon from 'mdi-react/RiceIcon';
 import ClockAlertIcon from 'mdi-react/ClockAlertIcon';
+import CloseIcon from 'mdi-react/CloseIcon';
 
 import moment from 'moment';
 
 class InputLunch extends React.Component {
+
+  handleDeleteCurrentEntry(index, e) {
+    this.props.deleteCurrentEntry(index);
+  }
+
   render() {
     const now = moment().hour(12).minute(0);
     return (
@@ -31,6 +37,12 @@ class InputLunch extends React.Component {
         <div className={"inputContainer endTimeContainer endLunch lunch" + this.props.entryIndexProp} data-tip="End Time...">
           <ClockAlertIcon className="newEntryIcon clockIcon clockLunchIcon" />
           <TimePicker placeholder="End Time..." showSecond={false} defaultOpenValue={now} minuteStep={5} />
+        </div>
+        {/* delete button */}
+        <div
+          className={"deleteContainer delete" + this.props.entryIndexProp}
+          data-tip="Delete Entry..." onClick={this.handleDeleteCurrentEntry.bind(this, this.props.entryIndexProp)}>
+          <div className="del"><CloseIcon className={"deleteIcon" + this.props.entryIndexProp} /></div>
         </div>
 
         <ReactTooltip effect="solid" place="bottom" />

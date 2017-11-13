@@ -18,6 +18,11 @@ import CloseIcon from 'mdi-react/CloseIcon';
 import moment from 'moment';
 
 class InputWork extends React.Component {
+
+  handleDeleteCurrentEntry(index, e) {
+    this.props.deleteCurrentEntry(index);
+  }
+
   render() {
     const now = moment().hour(8).minute(0);
     return (
@@ -53,8 +58,10 @@ class InputWork extends React.Component {
           <TimePicker placeholder="End Time..." showSecond={false} defaultOpenValue={now} minuteStep={5} />
         </div>
         {/* delete button */}
-        <div className={"deleteContainer delete" + this.props.entryIndexProp} data-tip="Delete Entry...">
-          <div className="del"><CloseIcon className={"deleteIcon"+ this.props.entryIndexProp} /></div>
+        <div
+          className={"deleteContainer delete" + this.props.entryIndexProp}
+          data-tip="Delete Entry..." onClick={this.handleDeleteCurrentEntry.bind(this, this.props.entryIndexProp)}>
+          <div className="del"><CloseIcon className={"deleteIcon" + this.props.entryIndexProp} /></div>
         </div>
 
         <ReactTooltip effect="solid" place="bottom" />

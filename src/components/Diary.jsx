@@ -16,23 +16,49 @@ class Diary extends React.Component {
       addNewButtonTooltipText: 'Start the day with a new entry...'
     };
     this.addNewEntry = this.addNewEntry.bind(this);
+    this.deleteCurrentEntry = this.deleteCurrentEntry.bind(this);
   }
 
   addNewEntry(event, string) {
     const inputListWork = this.state.inputListWork;
     const addNewButtonTooltipText = this.state.addNewButtonTooltipText;
 
+    if (inputListWork.length > 0) {
+      let penultimateElement = document.getElementsByClassName('delete' + (inputListWork.length - 1));
+      penultimateElement[0].className += ' hideDeleteElement';
+    }
+
     if (string == 'work') {
       this.setState({
-        inputListWork: inputListWork.concat(<InputWork key={inputListWork.length} entryIndexProp={inputListWork.length} />),
+        inputListWork: inputListWork.concat(<InputWork
+          key={inputListWork.length}
+          entryIndexProp={inputListWork.length}
+          deleteCurrentEntry={this.deleteCurrentEntry.bind(this)} />),
         addNewButtonTooltipText: 'Add new entry...'
       });
     } else if (string == 'lunch') {
       this.setState({
-        inputListWork: inputListWork.concat(<InputLunch key={inputListWork.length} entryIndexProp={inputListWork.length} />)
+        inputListWork: inputListWork.concat(<InputLunch
+          key={inputListWork.length}
+          entryIndexProp={inputListWork.length}
+          deleteCurrentEntry={this.deleteCurrentEntry.bind(this)} />)
       });
     }
+  }
 
+  deleteCurrentEntry(index) {
+    let inputListWork = this.state.inputListWork;
+    let penultimateElement;
+
+    if (inputListWork.length > 1) {
+      penultimateElement = document.getElementsByClassName('delete' + (inputListWork.length - 2));
+      penultimateElement[0].classList.remove('hideDeleteElement');
+    }
+    
+    inputListWork.splice(index, 1);
+    this.setState({
+      inputListWork: inputListWork
+    }); 
   }
 
   render() {
