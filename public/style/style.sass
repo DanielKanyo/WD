@@ -9,6 +9,8 @@ $blue: #00dce8
 $blue-lighter: rgba(0, 220, 232, 0.5)
 $yellow: #ffc300
 $yellow-dark: rgba(255, 195, 0, 0.5)
+$green: #1ac407
+$green-dark: rgba(26, 196, 7, 0.5)
 
 body
   margin: 0
@@ -135,13 +137,16 @@ body
   margin-bottom: 15px 
 
 .addNewBtn 
-  width: 50%
+  width: 33%
   float: left
   height: 45px
   background: $charcoal-light-rgba
   border: none
   fill: $charcoal-dark
   outline: none
+
+.pluswork
+  width: 34%
 
 .pluswork:hover
   background: $charcoal-light-rgba-lighter
@@ -154,6 +159,12 @@ body
   fill: $yellow
   cursor: pointer
   border-bottom: 1px solid $yellow
+
+.plusmeeting:hover
+  background: $charcoal-light-rgba-lighter
+  fill: $green
+  cursor: pointer
+  border-bottom: 1px solid $green
 
 /* content INPUT and LUNCH */
 
@@ -195,7 +206,7 @@ body
 .startTimeContainer
   width: 10%
 
-.projectContainer
+.projectContainer, .projectContainerMeeting
   width: 13%
 
 .productOwnerContainer
@@ -213,12 +224,16 @@ body
 .lunchContainer
   width: 50%
 
-.startLunch, .endLunch
+.meetingContainer
+  width: 21%
+
+.startLunch, .endLunch, .startMeeting, .endMeeting
   width: 20.5%
 
 .projectContainer *, .productOwnerContainer *,
 .taskNumberContainer *, .descriptionContainer *,
-.endTimeContainer *, .lunchContainer *
+.endTimeContainer *, .lunchContainer *, .projectContainerMeeting *, 
+.meetingContainer *
   box-sizing: border-box
 
 .newEntryIcon
@@ -263,6 +278,131 @@ body
 
 .hideDeleteElement
   display: none
+
+/* lunch entry */
+
+.lunchEntry .rc-time-picker-input
+  color: $yellow
+  border-bottom: 1px solid $yellow
+
+.lunchEntry .rc-time-picker-input::-webkit-input-placeholder
+  color: $yellow-dark
+
+.lunchEntry .rc-time-picker-input::-moz-placeholder
+  color: $yellow-dark
+
+.lunchEntry .rc-time-picker-input:-ms-input-placeholder
+  color: $yellow-dark
+
+.lunchEntry .rc-time-picker-input:-moz-placeholder
+  color: $yellow-dark
+
+.clockLunchIcon
+  fill: $yellow
+
+.lunchIcon
+  fill: $yellow
+
+.lunchInput
+  color: $yellow
+  border-bottom: 1px solid $yellow
+
+.lunchInput:hover
+  cursor: not-allowed
+
+.lunchInput::-webkit-input-placeholder
+  color: $yellow-dark
+
+.lunchInput::-moz-placeholder
+  color: $yellow-dark
+
+.lunchInput:-ms-input-placeholder
+  color: $yellow-dark
+
+.lunchInput:-moz-placeholder
+  color: $yellow-dark
+
+/* meeting entry */
+
+.meetingEntry .rc-time-picker-input
+  color: $green
+  border-bottom: 1px solid $green
+
+.meetingEntry .rc-time-picker-input::-webkit-input-placeholder
+  color: $green-dark
+
+.meetingEntry .rc-time-picker-input::-moz-placeholder
+  color: $green-dark
+
+.meetingEntry .rc-time-picker-input:-ms-input-placeholder
+  color: $green-dark
+
+.meetingEntry .rc-time-picker-input:-moz-placeholder
+  color: $green-dark
+
+.clockMeetingIcon
+  fill: $green
+
+.meetingIcon
+  fill: $green
+
+.meetingInput
+  color: $green
+  border-bottom: 1px solid $green
+
+.meetingInput:hover
+  cursor: not-allowed
+
+.meetingInput::-webkit-input-placeholder
+  color: $green-dark
+
+.meetingInput::-moz-placeholder
+  color: $green-dark
+
+.meetingInput:-ms-input-placeholder
+  color: $green-dark
+
+.meetingInput:-moz-placeholder
+  color: $green-dark
+
+.projectMeetingIcon
+  fill: $green
+
+.projectMeetingInput
+  color: $green
+  border-bottom: 1px solid $green
+
+.projectMeetingInput::-webkit-input-placeholder
+  color: $green-dark
+
+.projectMeetingInput::-moz-placeholder
+  color: $green-dark
+
+.projectMeetingInput:-ms-input-placeholder
+  color: $green-dark
+
+.projectMeetingInput:-moz-placeholder
+  color: $green-dark
+
+.ownerMeetingInput
+  color: $green
+  border-bottom: 1px solid $green
+
+.ownerMeetingInput::-webkit-input-placeholder
+  color: $green-dark
+
+.ownerMeetingInput::-moz-placeholder
+  color: $green-dark
+
+.ownerMeetingInput:-ms-input-placeholder
+  color: $green-dark
+
+.ownerMeetingInput:-moz-placeholder
+  color: $green-dark
+
+.ownerMeetingIcon
+  fill: $green
+
 
 /* FOOTER */
 
@@ -342,15 +482,8 @@ body
 .rc-time-picker-panel-narrow 
   max-width: 113px
 
-.rc-time-picker-panel-input 
-  margin: 0
-  padding: 0
+.rc-time-picker-panel-input
   display: none
-  width: 100%
-  cursor: auto
-  line-height: 1.5
-  outline: 0
-  border: 1px solid transparent
 
 .rc-time-picker-panel-input-wrap 
   width: 0 
@@ -362,33 +495,8 @@ body
   box-sizing: border-box
   position: relative
 
-.rc-time-picker-panel-input-invalid 
-  border-color: red
-
 .rc-time-picker-panel-clear-btn 
   display: none
-  position: absolute
-  right: 6px
-  cursor: pointer
-  overflow: hidden
-  width: 20px
-  height: 20px
-  text-align: center
-  line-height: 20px
-  top: 6px
-  margin: 0
-
-.rc-time-picker-panel-clear-btn:after 
-  content: "x"
-  font-size: 12px
-  color: #aaa
-  display: inline-block
-  line-height: 1
-  width: 20px
-  transition: color 0.3s ease
-
-.rc-time-picker-panel-clear-btn:hover:after 
-  color: #666
 
 .rc-time-picker-panel-select 
   float: left
@@ -465,46 +573,3 @@ li.rc-time-picker-panel-select-option-disabled:hover
 
 .rc-time-picker-panel-select::-webkit-scrollbar-thumb
 	background-color: $sand-dollar
-
-/* lunch entry */
-
-.lunchEntry .rc-time-picker-input
-  color: $yellow
-  border-bottom: 1px solid $yellow
-
-.lunchEntry .rc-time-picker-input::-webkit-input-placeholder
-  color: $yellow-dark
-
-.lunchEntry .rc-time-picker-input::-moz-placeholder
-  color: $yellow-dark
-
-.lunchEntry .rc-time-picker-input:-ms-input-placeholder
-  color: $yellow-dark
-
-.lunchEntry .rc-time-picker-input:-moz-placeholder
-  color: $yellow-dark
-
-.clockLunchIcon
-  fill: $yellow
-
-.lunchIcon
-  fill: $yellow
-
-.lunchInput
-  color: $yellow
-  border-bottom: 1px solid $yellow
-
-.lunchInput:hover
-  cursor: not-allowed
-
-.lunchInput::-webkit-input-placeholder
-  color: $yellow-dark
-
-.lunchInput::-moz-placeholder
-  color: $yellow-dark
-
-.lunchInput:-ms-input-placeholder
-  color: $yellow-dark
-
-.lunchInput:-moz-placeholder
-  color: $yellow-dark

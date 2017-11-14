@@ -2,10 +2,12 @@ import React from 'react';
 /** tooltip */
 import ReactTooltip from 'react-tooltip';
 import PlusIcon from 'mdi-react/PlusIcon';
-import RiceIcon from 'mdi-react/RiceIcon'
+import RiceIcon from 'mdi-react/RiceIcon';
+import VoiceIcon from 'mdi-react/VoiceIcon';
 
 import InputWork from './InputWork.jsx';
 import InputLunch from './InputLuch.jsx';
+import InputMeeting from './InputMeeting.jsx';
 
 class Diary extends React.Component {
 
@@ -43,6 +45,13 @@ class Diary extends React.Component {
           entryIndexProp={inputListWork.length}
           deleteCurrentEntry={this.deleteCurrentEntry.bind(this)} />)
       });
+    } else if (string == 'meeting') {
+      this.setState({
+        inputListWork: inputListWork.concat(<InputMeeting
+          key={inputListWork.length}
+          entryIndexProp={inputListWork.length}
+          deleteCurrentEntry={this.deleteCurrentEntry.bind(this)} />)
+      });
     }
   }
 
@@ -71,18 +80,25 @@ class Diary extends React.Component {
         })}
 
         <div className="addNewContainer">
-
+          {/* add meeting */}
+          <button className="addNewBtn plusmeeting"
+            onClick={(e) => this.addNewEntry(e, 'meeting')}
+            data-tip='New daily meeting entry...'
+            data-delay-show='500'>
+            <VoiceIcon />
+          </button>
+          {/* add work */}
           <button className="addNewBtn pluswork"
             onClick={(e) => this.addNewEntry(e, 'work')}
             data-tip={addNewButtonTooltipText}
-            data-delay-show='1000'>
+            data-delay-show='500'>
             <PlusIcon />
           </button>
-
+          {/* add lunch */}
           <button className="addNewBtn plusluch"
             onClick={(e) => this.addNewEntry(e, 'lunch')}
             data-tip='New lunch entry...'
-            data-delay-show='1000'>
+            data-delay-show='500'>
             <RiceIcon />
           </button>
 

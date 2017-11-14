@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 /** tooltip */
 import ReactTooltip from 'react-tooltip';
-import PlusIcon from 'mdi-react/PlusIcon';
 /** timepicker */
 import TimePicker from 'rc-time-picker';
 /** icons */
