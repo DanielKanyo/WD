@@ -3,79 +3,130 @@ import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import PlusIcon from 'mdi-react/PlusIcon';
 import RiceIcon from 'mdi-react/RiceIcon';
-import VoiceIcon from 'mdi-react/VoiceIcon';
+import AccountMultipleIcon from 'mdi-react/AccountMultipleIcon';
 
 import InputWork from './InputWork.jsx';
 import InputLunch from './InputLuch.jsx';
 import InputMeeting from './InputMeeting.jsx';
+import Tools from './Tools.jsx';
 
 class Diary extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      inputListWork: [],
+      inputListOfEntrys: [],
       addNewButtonTooltipText: 'Start the day with a new entry...'
     };
     this.addNewEntry = this.addNewEntry.bind(this);
     this.deleteCurrentEntry = this.deleteCurrentEntry.bind(this);
+    this.changeTooltipText = this.changeTooltipText.bind(this);
+    this.renderEntrys = this.renderEntrys.bind(this);
+    this.saveEntrys = this.saveEntrys.bind(this);
+    this.getDataToSend = this.getDataToSend.bind(this);
   }
 
   addNewEntry(event, string) {
-    const inputListWork = this.state.inputListWork;
+    const inputListOfEntrys = this.state.inputListOfEntrys;
     const addNewButtonTooltipText = this.state.addNewButtonTooltipText;
 
-    if (inputListWork.length > 0) {
-      let penultimateElement = document.getElementsByClassName('delete' + (inputListWork.length - 1));
+    this.changeTooltipText(inputListOfEntrys);
+
+    if (inputListOfEntrys.length > 0) {
+      let penultimateElement = document.getElementsByClassName('delete' + (inputListOfEntrys.length - 1));
       penultimateElement[0].className += ' hideDeleteElement';
     }
 
+    this.renderEntrys(string, inputListOfEntrys);
+  }
+
+  changeTooltipText(inputListOfEntrys) {
+    if (inputListOfEntrys.length == 1) {
+      this.setState({
+        addNewButtonTooltipText: 'Start the day with a new entry...'
+      });
+    } else {
+      this.setState({
+        addNewButtonTooltipText: 'Add new entry...'
+      });
+    }
+  }
+
+  renderEntrys(string, inputListOfEntrys) {
     if (string == 'work') {
       this.setState({
-        inputListWork: inputListWork.concat(<InputWork
-          key={inputListWork.length}
-          entryIndexProp={inputListWork.length}
-          deleteCurrentEntry={this.deleteCurrentEntry.bind(this)} />),
-        addNewButtonTooltipText: 'Add new entry...'
+        inputListOfEntrys: inputListOfEntrys.concat(<InputWork
+          key={inputListOfEntrys.length}
+          entryIndexProp={inputListOfEntrys.length}
+          deleteCurrentEntry={this.deleteCurrentEntry.bind(this)} />)
       });
     } else if (string == 'lunch') {
       this.setState({
-        inputListWork: inputListWork.concat(<InputLunch
-          key={inputListWork.length}
-          entryIndexProp={inputListWork.length}
+        inputListOfEntrys: inputListOfEntrys.concat(<InputLunch
+          key={inputListOfEntrys.length}
+          entryIndexProp={inputListOfEntrys.length}
           deleteCurrentEntry={this.deleteCurrentEntry.bind(this)} />)
       });
     } else if (string == 'meeting') {
       this.setState({
-        inputListWork: inputListWork.concat(<InputMeeting
-          key={inputListWork.length}
-          entryIndexProp={inputListWork.length}
+        inputListOfEntrys: inputListOfEntrys.concat(<InputMeeting
+          key={inputListOfEntrys.length}
+          entryIndexProp={inputListOfEntrys.length}
           deleteCurrentEntry={this.deleteCurrentEntry.bind(this)} />)
       });
     }
   }
 
   deleteCurrentEntry(index) {
-    let inputListWork = this.state.inputListWork;
+    let inputListOfEntrys = this.state.inputListOfEntrys;
     let penultimateElement;
 
-    if (inputListWork.length > 1) {
-      penultimateElement = document.getElementsByClassName('delete' + (inputListWork.length - 2));
+    if (inputListOfEntrys.length > 1) {
+      penultimateElement = document.getElementsByClassName('delete' + (inputListOfEntrys.length - 2));
       penultimateElement[0].classList.remove('hideDeleteElement');
     }
-    
-    inputListWork.splice(index, 1);
+
+    inputListOfEntrys.splice(index, 1);
     this.setState({
-      inputListWork: inputListWork
-    }); 
+      inputListOfEntrys: inputListOfEntrys
+    });
+  }
+
+  saveEntrys() {
+    const inputListOfEntrys = this.state.inputListOfEntrys;
+
+    let data = this.getDataToSend(inputListOfEntrys);
+  }
+
+  getDataToSend(inputListOfEntrys) {
+    let workStartInputVal, projectInputVal, ownerInputVal, taskNumInputVal, descriptInputVal, workEndInputVal;
+    let dataArray;
+    console.log(inputListOfEntrys);
+
+    inputListOfEntrys.map((element, index) => {
+      let workTimePickerStart = document.getElementsByClassName('start' + index);
+      workStartInputVal = workTimePickerStart[0].children[1].children[0].value;
+
+      projectInputVal = document.getElementsByClassName('projectInput' + index)[0].value;
+      ownerInputVal = document.getElementsByClassName('ownerInput' + index)[0].value;
+      taskNumInputVal = document.getElementsByClassName('numIn' + index)[0].value;
+      descriptInputVal = document.getElementsByClassName('descriptionInput' + index)[0].value;
+
+      let workTimePickerEnd = document.getElementsByClassName('end' + index);
+      workEndInputVal = workTimePickerEnd[0].children[1].children[0].value;
+
+      console.log(workStartInputVal, projectInputVal, ownerInputVal, taskNumInputVal, workEndInputVal);
+    });
+    //return workInputVal, projectInputVal;
   }
 
   render() {
     const addNewButtonTooltipText = this.state.addNewButtonTooltipText;
     return (
       <div className="diaryContent">
+        <div className="tools"><Tools saveEntrys={this.saveEntrys.bind(this)} /></div>
 
-        {this.state.inputListWork.map((input, index) => {
+        {this.state.inputListOfEntrys.map((input, index) => {
           return input;
         })}
 
@@ -85,7 +136,7 @@ class Diary extends React.Component {
             onClick={(e) => this.addNewEntry(e, 'meeting')}
             data-tip='New daily meeting entry...'
             data-delay-show='500'>
-            <VoiceIcon />
+            <AccountMultipleIcon />
           </button>
           {/* add work */}
           <button className="addNewBtn pluswork"

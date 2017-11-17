@@ -5,12 +5,13 @@ $charcoal-light-rgba: rgba(81, 85, 89, 0.2)
 $charcoal-light-rgba-lighter: rgba(81, 85, 89, 0.3)
 $sand-dollar: #f7f1e3
 $wood-veneer: #686060
+$wood-veneer-dark: rgba(79, 75, 75, 0.4)
 $blue: #00dce8
 $blue-lighter: rgba(0, 220, 232, 0.5)
 $yellow: #ffc300
 $yellow-dark: rgba(255, 195, 0, 0.5)
-$green: #1ac407
-$green-dark: rgba(26, 196, 7, 0.5)
+$green: #30ff67
+$green-dark: rgba(48, 255, 103, 0.5)
 
 body
   margin: 0
@@ -83,18 +84,11 @@ body
   fill: $blue
   color: $blue
 
-.datepicker
-  width: 100%
-  height: 35px
-  line-height: 35px
-  float: left
-  background: $wood-veneer
-
 /* CONTENT */
 
 .content
-  margin-top: 95px
-  height: calc(100vh - 170px)
+  margin-top: 60px
+  height: calc(100vh - 150px)
   background: $charcoal-dark
   background-repeat: no-repeat
   background-position: center
@@ -403,7 +397,6 @@ body
 .ownerMeetingIcon
   fill: $green
 
-
 /* FOOTER */
 
 .footer
@@ -411,7 +404,7 @@ body
   z-index: 11
   width: 100%
   bottom: 0
-  height: 75px
+  height: 90px
   background: $wood-veneer
   -webkit-box-shadow: 0px 0px 42px -2px rgba(0,0,0,0.75)
   -moz-box-shadow: 0px 0px 42px -2px rgba(0,0,0,0.75)
@@ -573,3 +566,31 @@ li.rc-time-picker-panel-select-option-disabled:hover
 
 .rc-time-picker-panel-select::-webkit-scrollbar-thumb
 	background-color: $sand-dollar
+
+/* TOOLS */
+
+.tools
+  margin-left: -15px 
+  margin-top: -15px
+  margin-bottom: 10px
+  width: calc(100% + 30px)
+  height: 35px
+  line-height: 35px
+  float: left
+  background: $wood-veneer
+
+.saveDiaryEntrysContainer
+  float: right
+
+.saveBtn
+  border: none
+  background: none
+  outline: none
+  line-height: 10px
+  fill: $charcoal
+  height: 35px
+  width: 55px
+
+.saveBtn:hover
+  cursor: pointer
+  background: $wood-veneer-dark

@@ -34,22 +34,22 @@ class InputWork extends React.Component {
         {/* project name input */}
         <div className={"inputContainer projectContainer project" + this.props.entryIndexProp} data-tip="Project name...">
           <FolderOutlineIcon className="newEntryIcon projectFolderIcon" />
-          <input placeholder="Project..." type="text" className="newEntryInput projectInput" />
+          <input placeholder="Project..." type="text" className={"newEntryInput projectInput" + this.props.entryIndexProp} />
         </div>
         {/* product owner input */}
         <div className={"inputContainer productOwnerContainer owner" + this.props.entryIndexProp} data-tip="Product owner...">
           <AccountMultipleIcon className="newEntryIcon productOwnerIcon" />
-          <input placeholder="Product owner..." type="text" className="newEntryInput ownerInput" />
+          <input placeholder="Product owner..." type="text" className={"newEntryInput ownerInput" + this.props.entryIndexProp} />
         </div>
         {/* task number input */}
         <div className={"inputContainer taskNumberContainer number" + this.props.entryIndexProp} data-tip="Task number...">
           <PoundIcon className="newEntryIcon taskNumberIcon" />
-          <input placeholder="Task number..." type="number" className="newEntryInput numberInput" />
+          <input placeholder="Task number..." type="number" className={"newEntryInput numberInput numIn" + this.props.entryIndexProp} />
         </div>
         {/* description input */}
         <div className={"inputContainer descriptionContainer description" + this.props.entryIndexProp} data-tip="Description...">
           <MessageTextOutlineIcon className="newEntryIcon descriptionIcon" />
-          <input placeholder="Description..." type="text" className="newEntryInput descriptionInput" />
+          <input placeholder="Description..." type="text" className={"newEntryInput descriptionInput" + this.props.entryIndexProp} />
         </div>
         {/* end time input */}
         <div className={"inputContainer endTimeContainer end" + this.props.entryIndexProp} data-tip="End Time...">

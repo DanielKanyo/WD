@@ -6,7 +6,7 @@ import ReactTooltip from 'react-tooltip';
 import TimePicker from 'rc-time-picker';
 /** icons */
 import ClockIcon from 'mdi-react/ClockIcon';
-import VoiceIcon from 'mdi-react/VoiceIcon';
+import PhoneIcon from 'mdi-react/PhoneIcon';
 import ClockAlertIcon from 'mdi-react/ClockAlertIcon';
 import CloseIcon from 'mdi-react/CloseIcon';
 import FolderOutlineIcon from 'mdi-react/FolderOutlineIcon';
@@ -41,7 +41,7 @@ class InputMeeting extends React.Component {
         </div>
         {/* meeting input */}
         <div className={"inputContainer meetingContainer meeting" + this.props.entryIndexProp} >
-          <VoiceIcon className="newEntryIcon meetingIcon" />
+          <PhoneIcon className="newEntryIcon meetingIcon" />
           <input value="Meeting" type="text" className="newEntryInput meetingInput" disabled />
         </div>
         {/* end time input */}

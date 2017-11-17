@@ -91,7 +91,6 @@ class Header extends React.Component {
 
           </div>
         </div>
-        <div className="datepicker">DatePicker</div>
 
         <ReactTooltip effect="solid" place="bottom" />
       </div>
