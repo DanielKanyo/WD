@@ -23,7 +23,9 @@ class Diary extends React.Component {
     this.changeTooltipText = this.changeTooltipText.bind(this);
     this.renderEntrys = this.renderEntrys.bind(this);
     this.saveEntrys = this.saveEntrys.bind(this);
-    this.getDataToSend = this.getDataToSend.bind(this);
+    this.getWorkData = this.getWorkData.bind(this);
+    this.getMeetingData = this.getMeetingData.bind(this);
+    this.getLunchData = this.getLunchData.bind(this);
   }
 
   addNewEntry(event, string) {
@@ -95,29 +97,48 @@ class Diary extends React.Component {
   saveEntrys() {
     const inputListOfEntrys = this.state.inputListOfEntrys;
 
-    let data = this.getDataToSend(inputListOfEntrys);
+    inputListOfEntrys.map((element, index) => {
+      let entryType = element.type.name;
+      let dataToSend;
+
+      if (entryType == 'InputWork') {
+        data = this.getWorkData(inputListOfEntrys, index);
+      } else if (entryType == 'InputMeeting') {
+        data = this.getMeetingData(inputListOfEntrys, index);
+      } else {
+        data = this.getLunchData(inputListOfEntrys, index);
+      }
+
+      console.log(dataToSend);
+    });
   }
 
-  getDataToSend(inputListOfEntrys) {
-    let workStartInputVal, projectInputVal, ownerInputVal, taskNumInputVal, descriptInputVal, workEndInputVal;
+  getWorkData(inputListOfEntrys, index) {
     let dataArray;
-    console.log(inputListOfEntrys);
+    let workStartInputVal, projectInputVal, ownerInputVal, taskNumInputVal, descriptInputVal, workEndInputVal;
 
-    inputListOfEntrys.map((element, index) => {
-      let workTimePickerStart = document.getElementsByClassName('start' + index);
-      workStartInputVal = workTimePickerStart[0].children[1].children[0].value;
+    let workTimePickerStart = document.getElementsByClassName('start' + index);
+    workStartInputVal = workTimePickerStart[0].children[1].children[0].value;
 
-      projectInputVal = document.getElementsByClassName('projectInput' + index)[0].value;
-      ownerInputVal = document.getElementsByClassName('ownerInput' + index)[0].value;
-      taskNumInputVal = document.getElementsByClassName('numIn' + index)[0].value;
-      descriptInputVal = document.getElementsByClassName('descriptionInput' + index)[0].value;
+    projectInputVal = document.getElementsByClassName('projectInput' + index)[0].value;
+    ownerInputVal = document.getElementsByClassName('ownerInput' + index)[0].value;
+    taskNumInputVal = document.getElementsByClassName('numIn' + index)[0].value;
+    descriptInputVal = document.getElementsByClassName('descriptionInput' + index)[0].value;
 
-      let workTimePickerEnd = document.getElementsByClassName('end' + index);
-      workEndInputVal = workTimePickerEnd[0].children[1].children[0].value;
+    let workTimePickerEnd = document.getElementsByClassName('end' + index);
+    workEndInputVal = workTimePickerEnd[0].children[1].children[0].value;
 
-      console.log(workStartInputVal, projectInputVal, ownerInputVal, taskNumInputVal, workEndInputVal);
-    });
-    //return workInputVal, projectInputVal;
+    dataArray = [workStartInputVal, projectInputVal, ownerInputVal, taskNumInputVal, descriptInputVal, workEndInputVal];
+
+    return dataArray;
+  }
+
+  getMeetingData(inputListOfEntrys, index) {
+
+  }
+
+  getLunchData(inputListOfEntrys, index) {
+
   }
 
   render() {

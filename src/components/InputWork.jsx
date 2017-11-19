@@ -25,7 +25,7 @@ class InputWork extends React.Component {
   render() {
     const now = moment().hour(8).minute(0);
     return (
-      <div className={"newDiaryEntry entry" + this.props.entryIndexProp}>
+      <div className={"newDiaryEntry workEntry entry" + this.props.entryIndexProp}>
         {/* start time input */}
         <div className={"inputContainer startTimeContainer start" + this.props.entryIndexProp} data-tip="Start Time...">
           <ClockIcon className="newEntryIcon clockIcon" />
