@@ -10,11 +10,11 @@ const DiarySchema = new Schema({
   },
   project: {
     type: String,
-    required: [true, 'Project name is required']
+    required: [false]
   },
   productOwner: {
     type: String,
-    required: [true, 'Product owner is required']
+    required: [false]
   },
   taskNumber: {
     type: Number,
@@ -31,6 +31,10 @@ const DiarySchema = new Schema({
   date: {
     type: String,
     required: [true, 'Date is required']
+  },
+  entryType: {
+    type: String,
+    required: [true, 'Entry type is required']
   }
 });
 

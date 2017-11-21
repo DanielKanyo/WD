@@ -1,4 +1,5 @@
 import React from 'react';
+import Request from 'superagent';
 /** tooltip */
 import ReactTooltip from 'react-tooltip';
 import PlusIcon from 'mdi-react/PlusIcon';
@@ -26,6 +27,7 @@ class Diary extends React.Component {
     this.getWorkData = this.getWorkData.bind(this);
     this.getMeetingData = this.getMeetingData.bind(this);
     this.getLunchData = this.getLunchData.bind(this);
+    this.ajaxCallToSave = this.ajaxCallToSave.bind(this);
   }
 
   addNewEntry(event, string) {
@@ -102,19 +104,20 @@ class Diary extends React.Component {
       let dataToSend;
 
       if (entryType == 'InputWork') {
-        data = this.getWorkData(inputListOfEntrys, index);
+        dataToSend = this.getWorkData(inputListOfEntrys, index, entryType);
       } else if (entryType == 'InputMeeting') {
-        data = this.getMeetingData(inputListOfEntrys, index);
+        dataToSend = this.getMeetingData(inputListOfEntrys, index, entryType);
       } else {
-        data = this.getLunchData(inputListOfEntrys, index);
+        dataToSend = this.getLunchData(inputListOfEntrys, index, entryType);
       }
 
-      console.log(dataToSend);
+      this.ajaxCallToSave(dataToSend);
+
     });
   }
 
-  getWorkData(inputListOfEntrys, index) {
-    let dataArray;
+  getWorkData(inputListOfEntrys, index, entryType) {
+    let dataObject;
     let workStartInputVal, projectInputVal, ownerInputVal, taskNumInputVal, descriptInputVal, workEndInputVal;
 
     let workTimePickerStart = document.getElementsByClassName('start' + index);
@@ -128,17 +131,40 @@ class Diary extends React.Component {
     let workTimePickerEnd = document.getElementsByClassName('end' + index);
     workEndInputVal = workTimePickerEnd[0].children[1].children[0].value;
 
-    dataArray = [workStartInputVal, projectInputVal, ownerInputVal, taskNumInputVal, descriptInputVal, workEndInputVal];
+    let date = new Date();
 
-    return dataArray;
+    dataObject = `{
+      "startTime": "${workStartInputVal}",
+      "project": "${projectInputVal}",
+      "productOwner": "${ownerInputVal}",
+      "taskNumber": ${taskNumInputVal},
+      "description": "${descriptInputVal}",
+      "endTime": "${workEndInputVal}",
+      "date": "${date}",
+      "entryType": "${entryType}"
+    }`;
+
+    return JSON.parse(dataObject);
   }
 
-  getMeetingData(inputListOfEntrys, index) {
+  getMeetingData(inputListOfEntrys, index, entryType) {
 
   }
 
-  getLunchData(inputListOfEntrys, index) {
+  getLunchData(inputListOfEntrys, index, entryType) {
 
+  }
+
+  ajaxCallToSave(dataToSend) {
+    console.log(dataToSend);
+
+    Request.post('api/diary').send(dataToSend).set('Accept', 'application/json').end(function (err, res) {
+      if (err || !res.ok) {
+        console.log(err);
+      } else {
+        console.log('OK');
+      }
+    });
   }
 
   render() {
