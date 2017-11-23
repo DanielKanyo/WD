@@ -2,14 +2,17 @@ import React from 'react';
 import Request from 'superagent';
 /** tooltip */
 import ReactTooltip from 'react-tooltip';
+/** icons */
 import PlusIcon from 'mdi-react/PlusIcon';
 import RiceIcon from 'mdi-react/RiceIcon';
 import AccountMultipleIcon from 'mdi-react/AccountMultipleIcon';
-
+/** components */
 import InputWork from './InputWork.jsx';
 import InputLunch from './InputLuch.jsx';
 import InputMeeting from './InputMeeting.jsx';
 import Tools from './Tools.jsx';
+/** notify */
+import Notifications, {notify} from 'react-notify-toast';
 
 class Diary extends React.Component {
 
@@ -133,18 +136,18 @@ class Diary extends React.Component {
 
     let date = new Date();
 
-    dataObject = `{
-      "startTime": "${workStartInputVal}",
-      "project": "${projectInputVal}",
-      "productOwner": "${ownerInputVal}",
-      "taskNumber": ${taskNumInputVal},
-      "description": "${descriptInputVal}",
-      "endTime": "${workEndInputVal}",
-      "date": "${date}",
-      "entryType": "${entryType}"
-    }`;
+    dataObject = {
+      startTime: workStartInputVal,
+      project: projectInputVal,
+      productOwner: ownerInputVal,
+      taskNumber: taskNumInputVal,
+      description: descriptInputVal,
+      endTime: workEndInputVal,
+      date: date,
+      entryType: entryType
+    };
 
-    return JSON.parse(dataObject);
+    return dataObject;
   }
 
   getMeetingData(inputListOfEntrys, index, entryType) {
@@ -155,14 +158,18 @@ class Diary extends React.Component {
 
   }
 
+  //save data to the database
   ajaxCallToSave(dataToSend) {
-    console.log(dataToSend);
 
     Request.post('api/diary').send(dataToSend).set('Accept', 'application/json').end(function (err, res) {
       if (err || !res.ok) {
         console.log(err);
       } else {
-        console.log('OK');
+        notify.show('Success!', 'success', 5000);
+
+        let toastNotification = document.getElementsByClassName('toast-notification');
+        let toastSpan = toastNotification[0].children[0];
+        toastSpan.className += ' successToast';
       }
     });
   }
@@ -202,6 +209,7 @@ class Diary extends React.Component {
 
         </div>
 
+        <Notifications options={{zIndex: 5000}} />
         <ReactTooltip effect="solid" place="bottom" />
       </div>
     );
