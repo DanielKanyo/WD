@@ -12,7 +12,7 @@ import InputLunch from './InputLuch.jsx';
 import InputMeeting from './InputMeeting.jsx';
 import Tools from './Tools.jsx';
 /** notify */
-import Notifications, {notify} from 'react-notify-toast';
+import Notifications, { notify } from 'react-notify-toast';
 
 class Diary extends React.Component {
 
@@ -31,6 +31,7 @@ class Diary extends React.Component {
     this.getMeetingData = this.getMeetingData.bind(this);
     this.getLunchData = this.getLunchData.bind(this);
     this.ajaxCallToSave = this.ajaxCallToSave.bind(this);
+    this.warning = this.warning.bind(this);
   }
 
   addNewEntry(event, string) {
@@ -114,7 +115,9 @@ class Diary extends React.Component {
         dataToSend = this.getLunchData(inputListOfEntrys, index, entryType);
       }
 
-      this.ajaxCallToSave(dataToSend);
+      if (dataToSend != false) {
+        this.ajaxCallToSave(dataToSend);
+      }
 
     });
   }
@@ -134,20 +137,25 @@ class Diary extends React.Component {
     let workTimePickerEnd = document.getElementsByClassName('end' + index);
     workEndInputVal = workTimePickerEnd[0].children[1].children[0].value;
 
-    let date = new Date();
+    if (!workStartInputVal || !projectInputVal || !ownerInputVal || !taskNumInputVal || !descriptInputVal || !workEndInputVal) {
+      this.warning();
+      return false;
+    } else {
+      let date = new Date();
 
-    dataObject = {
-      startTime: workStartInputVal,
-      project: projectInputVal,
-      productOwner: ownerInputVal,
-      taskNumber: taskNumInputVal,
-      description: descriptInputVal,
-      endTime: workEndInputVal,
-      date: date,
-      entryType: entryType
-    };
+      dataObject = {
+        startTime: workStartInputVal,
+        project: projectInputVal,
+        productOwner: ownerInputVal,
+        taskNumber: taskNumInputVal,
+        description: descriptInputVal,
+        endTime: workEndInputVal,
+        date: date,
+        entryType: entryType
+      };
 
-    return dataObject;
+      return dataObject;
+    }
   }
 
   getMeetingData(inputListOfEntrys, index, entryType) {
@@ -163,15 +171,26 @@ class Diary extends React.Component {
 
     Request.post('api/diary').send(dataToSend).set('Accept', 'application/json').end(function (err, res) {
       if (err || !res.ok) {
-        console.log(err);
-      } else {
-        notify.show('Success!', 'success', 5000);
-
+        notify.show('Error!', 'error', 5000);
         let toastNotification = document.getElementsByClassName('toast-notification');
         let toastSpan = toastNotification[0].children[0];
-        toastSpan.className += ' successToast';
+        toastSpan.className += ' toastStyle';
+
+      } else {
+        notify.show('Success!', 'success', 5000);
+        let toastNotification = document.getElementsByClassName('toast-notification');
+        let toastSpan = toastNotification[0].children[0];
+        toastSpan.className += ' toastStyle';
       }
     });
+  }
+
+  warning() {
+    let myColor = { background: '#ff6600' }
+    notify.show('Warning! Fill the input fields...', 'custom', 5000, myColor);
+    let toastNotification = document.getElementsByClassName('toast-notification');
+    let toastSpan = toastNotification[0].children[0];
+    toastSpan.className += ' toastStyle';
   }
 
   render() {
@@ -209,7 +228,7 @@ class Diary extends React.Component {
 
         </div>
 
-        <Notifications options={{zIndex: 5000}} />
+        <Notifications options={{ zIndex: 5000 }} />
         <ReactTooltip effect="solid" place="bottom" />
       </div>
     );
