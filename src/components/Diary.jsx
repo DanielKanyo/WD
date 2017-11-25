@@ -32,6 +32,8 @@ class Diary extends React.Component {
     this.getLunchData = this.getLunchData.bind(this);
     this.ajaxCallToSave = this.ajaxCallToSave.bind(this);
     this.warning = this.warning.bind(this);
+    this.deleteEntrys = this.deleteEntrys.bind(this);
+    this.lockEntrys = this.lockEntrys.bind(this);
   }
 
   addNewEntry(event, string) {
@@ -122,6 +124,18 @@ class Diary extends React.Component {
     });
   }
 
+  deleteEntrys() {
+    const inputListOfEntrys = this.state.inputListOfEntrys;
+
+    if (inputListOfEntrys.length == 0) {
+      this.warning('No entry...');
+    } else {
+      this.setState({
+        inputListOfEntrys: []
+      });
+    }
+  }
+
   getWorkData(inputListOfEntrys, index, entryType) {
     let dataObject;
     let workStartInputVal, projectInputVal, ownerInputVal, taskNumInputVal, descriptInputVal, workEndInputVal;
@@ -138,7 +152,7 @@ class Diary extends React.Component {
     workEndInputVal = workTimePickerEnd[0].children[1].children[0].value;
 
     if (!workStartInputVal || !projectInputVal || !ownerInputVal || !taskNumInputVal || !descriptInputVal || !workEndInputVal) {
-      this.warning();
+      this.warning('Fill the input fields...');
       return false;
     } else {
       let date = new Date();
@@ -185,19 +199,28 @@ class Diary extends React.Component {
     });
   }
 
-  warning() {
+  warning(warningInfo) {
     let myColor = { background: '#ff6600' }
-    notify.show('Warning! Fill the input fields...', 'custom', 5000, myColor);
+    notify.show('Warning! ' + warningInfo, 'custom', 3000, myColor);
     let toastNotification = document.getElementsByClassName('toast-notification');
     let toastSpan = toastNotification[0].children[0];
     toastSpan.className += ' toastStyle';
+  }
+
+  lockEntrys() {
+    console.log('lock');
   }
 
   render() {
     const addNewButtonTooltipText = this.state.addNewButtonTooltipText;
     return (
       <div className="diaryContent">
-        <div className="tools"><Tools saveEntrys={this.saveEntrys.bind(this)} /></div>
+        <div className="tools">
+          <Tools
+            saveEntrys={this.saveEntrys.bind(this)}
+            deleteEntrys={this.deleteEntrys.bind(this)}
+            lockEntrys={this.lockEntrys.bind(this)} />
+        </div>
 
         {this.state.inputListOfEntrys.map((input, index) => {
           return input;

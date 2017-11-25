@@ -7,17 +7,30 @@ import BookIcon from 'mdi-react/BookIcon';
 import TumblrReblogIcon from 'mdi-react/TumblrReblogIcon';
 import ChartLineIcon from 'mdi-react/ChartLineIcon';
 import CalendarIcon from 'mdi-react/CalendarIcon';
+/** datepicker */
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+import 'react-datepicker/dist/react-datepicker.css';
 
 class Header extends React.Component {
+
   constructor(props) {
     super(props);
     this.state = {
       selectedIcon: {
-        diary: 'selected'
+        diary: 'selected',
       },
-      temp: 'diary'
-    }
+      temp: 'diary',
+      startDate: moment()
+    };
+    this.handleChange = this.handleChange.bind(this);
   };
+
+  handleChange(date) {
+    this.setState({
+      startDate: date
+    });
+  }
 
   handleUpdateIndexView(val) {
     this.props.updateViewIndexProp(val);
@@ -41,7 +54,6 @@ class Header extends React.Component {
     return (
       <div id="header-container">
         <div className="menuBar">
-          <div className="title">Work Diary!</div>
           <div className="menu">
             {/* LOGIN BUTTON */}
             <button className="menuBtn LoginBtn" onClick={function () {
@@ -90,6 +102,20 @@ class Header extends React.Component {
             </button>
 
           </div>
+
+          <div className="datePickerContainer">
+            <DatePicker
+              readOnly
+              className="datePickerInput"
+              selected={this.state.startDate}
+              onChange={this.handleChange}
+              dateFormat="LL"
+              locale="en-gb"
+              calendarClassName="datePickerStyleCustom"
+              maxDate={moment().add(0, "days")}
+            />
+          </div>
+
         </div>
 
         <ReactTooltip effect="solid" place="bottom" />

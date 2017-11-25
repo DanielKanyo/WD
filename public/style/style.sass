@@ -582,8 +582,9 @@ li.rc-time-picker-panel-select-option-disabled:hover
 
 .saveDiaryEntrysContainer
   float: right
+  height: 35px
 
-.saveBtn
+.toolTipBtn
   border: none
   background: none
   outline: none
@@ -592,10 +593,16 @@ li.rc-time-picker-panel-select-option-disabled:hover
   height: 35px
   width: 55px
 
-.saveBtn:hover
+.saveToolBtn
+  margin-right: 10px
+
+.toolTipBtn:hover
   cursor: pointer
   background: $wood-veneer-dark
   fill: $sand-dollar
+
+.toolIcon
+  height: 22px
 
 /* toast */
 .toast-notification
@@ -608,3 +615,84 @@ li.rc-time-picker-panel-select-option-disabled:hover
   border-radius: 0px !important
   height: 35px !important
   line-height: 35px !important
+
+/* datepicker */
+.datePickerContainer
+  padding-left: 20px
+  display: table-cell
+  vertical-align: middle
+  height: 60px
+
+.datePickerInput
+  font-family: 'Hind Siliguri', sans-serif
+  padding-left: 10px
+  margin-top: 8px
+  font-size: 14px
+  float: left
+  border: none
+  height: 25px
+  border-bottom: 1px solid $blue
+  background: none
+  color: $blue
+  outline: none
+  width: 230px
+
+.datePickerInput:hover
+  cursor: pointer
+
+.datePickerStyleCustom
+  background: $charcoal-light !important
+  border-radius: 0px !important
+  border: none !important
+  font-family: 'Hind Siliguri', sans-serif !important
+
+.react-datepicker__header
+  background: $charcoal !important
+  border-radius: 0px !important
+  border-bottom-color: $charcoal !important
+
+.react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle
+  margin-top: -7px !important
+
+.react-datepicker-popper[data-placement^="bottom"]
+  margin-top: 5px !important
+
+.react-datepicker__current-month
+  color: $sand-dollar !important
+  font-weight: normal !important
+
+.react-datepicker__day-name
+  color: $blue !important
+
+.react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle, 
+.react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle::before
+  border-bottom-color: $charcoal !important
+
+.react-datepicker__navigation--previous
+  border-right-color: $sand-dollar !important
+
+.react-datepicker__navigation--next
+  border-left-color: $sand-dollar !important
+
+.react-datepicker__day, .react-datepicker__time-name
+  color: $sand-dollar !important
+
+.react-datepicker__day--disabled
+  color: $charcoal !important
+
+.react-datepicker__day--selected, 
+.react-datepicker__day--in-selecting-range, 
+.react-datepicker__day--in-range
+  background-color: $blue !important
+  border-radius: 0px !important
+
+.react-datepicker__day:hover
+  border-radius: 0px !important
+  background: $charcoal-dark !important
+
+.react-datepicker__day--disabled:hover
+  background: $charcoal-light !important
+
+.react-datepicker__day--selected:hover, 
+.react-datepicker__day--in-selecting-range:hover, .react-datepicker__day--in-range:hover 
+  background-color: #00bcc6 !important
