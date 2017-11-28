@@ -12,8 +12,8 @@ class Tools extends React.Component {
     this.props.saveEntrys();
   }
 
-  handleDeleteEntrys() {
-    this.props.deleteEntrys();
+  handleCheckIsThereAnyEntry() {
+    this.props.checkIsThereAnyEntry();
   }
 
   handleLockEntrys() {
@@ -36,7 +36,8 @@ class Tools extends React.Component {
             className="toolTipBtn deleteToolBtn"
             data-tip="Delete entrys"
             data-delay-show="500"
-            onClick={this.handleDeleteEntrys.bind(this)}><DeleteIcon className="toolIcon" />
+            onClick={this.handleCheckIsThereAnyEntry.bind(this)}
+            ><DeleteIcon className="toolIcon" />
           </button>
           {/* save */}
           <button

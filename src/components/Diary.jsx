@@ -4,8 +4,9 @@ import Request from 'superagent';
 import ReactTooltip from 'react-tooltip';
 /** icons */
 import PlusIcon from 'mdi-react/PlusIcon';
-import RiceIcon from 'mdi-react/RiceIcon';
+import SilverwareIcon from 'mdi-react/SilverwareIcon';
 import AccountMultipleIcon from 'mdi-react/AccountMultipleIcon';
+import CloseIcon from 'mdi-react/CloseIcon';
 /** components */
 import InputWork from './InputWork.jsx';
 import InputLunch from './InputLuch.jsx';
@@ -13,6 +14,19 @@ import InputMeeting from './InputMeeting.jsx';
 import Tools from './Tools.jsx';
 /** notify */
 import Notifications, { notify } from 'react-notify-toast';
+/** modal */
+import Modal from 'react-modal';
+
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)'
+  }
+};
 
 class Diary extends React.Component {
 
@@ -20,7 +34,8 @@ class Diary extends React.Component {
     super(props);
     this.state = {
       inputListOfEntrys: [],
-      addNewButtonTooltipText: 'Start the day with a new entry...'
+      addNewButtonTooltipText: 'Start the day with a new entry...',
+      modalIsOpen: false
     };
     this.addNewEntry = this.addNewEntry.bind(this);
     this.deleteCurrentEntry = this.deleteCurrentEntry.bind(this);
@@ -32,8 +47,20 @@ class Diary extends React.Component {
     this.getLunchData = this.getLunchData.bind(this);
     this.ajaxCallToSave = this.ajaxCallToSave.bind(this);
     this.warning = this.warning.bind(this);
+    this.checkIsThereAnyEntry = this.checkIsThereAnyEntry.bind(this);
     this.deleteEntrys = this.deleteEntrys.bind(this);
     this.lockEntrys = this.lockEntrys.bind(this);
+
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+  }
+
+  openModal() {
+    this.setState({ modalIsOpen: true });
+  }
+
+  closeModal() {
+    this.setState({ modalIsOpen: false });
   }
 
   addNewEntry(event, string) {
@@ -124,16 +151,23 @@ class Diary extends React.Component {
     });
   }
 
-  deleteEntrys() {
+  checkIsThereAnyEntry() {
     const inputListOfEntrys = this.state.inputListOfEntrys;
 
     if (inputListOfEntrys.length == 0) {
       this.warning('No entry...');
     } else {
-      this.setState({
-        inputListOfEntrys: []
-      });
+      this.openModal();
     }
+  }
+
+  deleteEntrys() {
+    const inputListOfEntrys = this.state.inputListOfEntrys;
+
+    this.setState({
+      inputListOfEntrys: []
+    });
+    this.closeModal();
   }
 
   getWorkData(inputListOfEntrys, index, entryType) {
@@ -218,7 +252,7 @@ class Diary extends React.Component {
         <div className="tools">
           <Tools
             saveEntrys={this.saveEntrys.bind(this)}
-            deleteEntrys={this.deleteEntrys.bind(this)}
+            checkIsThereAnyEntry={this.checkIsThereAnyEntry.bind(this)}
             lockEntrys={this.lockEntrys.bind(this)} />
         </div>
 
@@ -246,10 +280,29 @@ class Diary extends React.Component {
             onClick={(e) => this.addNewEntry(e, 'lunch')}
             data-tip='New lunch entry...'
             data-delay-show='500'>
-            <RiceIcon />
+            <SilverwareIcon />
           </button>
 
         </div>
+
+        <Modal
+          isOpen={this.state.modalIsOpen}
+          onRequestClose={this.closeModal}
+          style={customStyles}
+          contentLabel="Example Modal"
+          overlayClassName="Overlay"
+          className="Modal"
+        >
+
+          <div className="modalTitle">Are you sure you?</div>
+          <div className="modalCloseContainer">
+            <button className="modalCloseBtn" onClick={this.closeModal}><CloseIcon /></button>
+          </div>
+          <div className="modalExplainContainer">
+            <p>If you click on the delete button, you will lost all your entries...</p>
+          </div>
+          <button className="modalDeleteBtn" onClick={this.deleteEntrys.bind(this)}>DELETE</button>
+        </Modal>
 
         <Notifications options={{ zIndex: 5000 }} />
         <ReactTooltip effect="solid" place="bottom" />

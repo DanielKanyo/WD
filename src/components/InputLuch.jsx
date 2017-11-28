@@ -6,7 +6,7 @@ import ReactTooltip from 'react-tooltip';
 import TimePicker from 'rc-time-picker';
 /** icons */
 import ClockIcon from 'mdi-react/ClockIcon';
-import RiceIcon from 'mdi-react/RiceIcon';
+import SilverwareIcon from 'mdi-react/SilverwareIcon';
 import ClockAlertIcon from 'mdi-react/ClockAlertIcon';
 import CloseIcon from 'mdi-react/CloseIcon';
 
@@ -29,7 +29,7 @@ class InputLunch extends React.Component {
         </div>
         {/* lunch input */}
         <div className={"inputContainer lunchContainer lunch" + this.props.entryIndexProp} >
-          <RiceIcon className="newEntryIcon lunchIcon" />
+          <SilverwareIcon className="newEntryIcon lunchIcon" />
           <input value="Lunch" type="text" className="newEntryInput lunchInput" disabled />
         </div>
         {/* end time input */}

@@ -696,3 +696,66 @@ li.rc-time-picker-panel-select-option-disabled:hover
 .react-datepicker__day--selected:hover, 
 .react-datepicker__day--in-selecting-range:hover, .react-datepicker__day--in-range:hover 
   background-color: #00bcc6 !important
+
+/* modal */
+.Overlay
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  background-color: rgba(0, 0, 0, 0.5)
+  z-index: 12
+
+.Modal 
+  position: absolute
+  width: 400px
+  outline: none
+  padding: 15px 20px
+  border: none
+  background-color: $charcoal-dark
+
+.modalTitle
+  width: 80%
+  float: left
+  height: 30px
+  line-height: 30px
+  color: $blue
+  margin-bottom: 5px
+
+.modalCloseContainer
+  width: 20%
+  float: left
+  height: 30px
+  line-height: 30px
+  margin-bottom: 5px
+
+.modalCloseBtn
+  outline: none
+  float: right
+  border: none
+  height: 30px
+  background: none
+  fill: $blue
+
+.modalCloseBtn:hover
+  cursor: pointer
+
+.modalExplainContainer
+  color: $sand-dollar 
+  clear: both
+  padding: 5px 0px 5px 0px
+  width: 100%
+  text-align: justify
+  font-size: 0.8em
+
+.modalDeleteBtn
+  width: 100%
+  background: none
+  border: 1px solid $blue
+  outline: none
+  padding: 5px
+  color: $blue
+
+.modalDeleteBtn:hover
+  cursor: pointer
