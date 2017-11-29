@@ -7,6 +7,7 @@ import PlusIcon from 'mdi-react/PlusIcon';
 import SilverwareIcon from 'mdi-react/SilverwareIcon';
 import AccountMultipleIcon from 'mdi-react/AccountMultipleIcon';
 import CloseIcon from 'mdi-react/CloseIcon';
+import DeleteIcon from "mdi-react/DeleteIcon";
 /** components */
 import InputWork from './InputWork.jsx';
 import InputLunch from './InputLuch.jsx';
@@ -189,7 +190,9 @@ class Diary extends React.Component {
       this.warning('Fill the input fields...');
       return false;
     } else {
-      let date = new Date();
+
+      let dateString = document.getElementsByClassName('datePickerInput')[0].value;
+      let date = new Date(dateString);
 
       dataObject = {
         startTime: workStartInputVal,
@@ -242,7 +245,7 @@ class Diary extends React.Component {
   }
 
   lockEntrys() {
-    console.log('lock');
+
   }
 
   render() {
@@ -294,14 +297,16 @@ class Diary extends React.Component {
           className="Modal"
         >
 
-          <div className="modalTitle">Are you sure you?</div>
+          <div className="modalTitle">Are you sure?</div>
           <div className="modalCloseContainer">
             <button className="modalCloseBtn" onClick={this.closeModal}><CloseIcon /></button>
           </div>
           <div className="modalExplainContainer">
-            <p>If you click on the delete button, you will lost all your entries...</p>
+            <p>If you click on the trash bin button, you will lost all your entries...</p>
           </div>
-          <button className="modalDeleteBtn" onClick={this.deleteEntrys.bind(this)}>DELETE</button>
+          <button className="modalDeleteBtn" onClick={this.deleteEntrys.bind(this)}>
+            <DeleteIcon className="modalDeleteIco" />
+          </button>
         </Modal>
 
         <Notifications options={{ zIndex: 5000 }} />
