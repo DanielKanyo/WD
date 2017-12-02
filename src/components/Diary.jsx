@@ -35,12 +35,11 @@ class Diary extends React.Component {
     super(props);
     this.state = {
       inputListOfEntrys: [],
-      addNewButtonTooltipText: 'Start the day with a new entry...',
+      addNewButtonTooltipText: 'Add new entry...',
       modalIsOpen: false
     };
     this.addNewEntry = this.addNewEntry.bind(this);
     this.deleteCurrentEntry = this.deleteCurrentEntry.bind(this);
-    this.changeTooltipText = this.changeTooltipText.bind(this);
     this.renderEntrys = this.renderEntrys.bind(this);
     this.saveEntrys = this.saveEntrys.bind(this);
     this.getWorkData = this.getWorkData.bind(this);
@@ -68,26 +67,12 @@ class Diary extends React.Component {
     const inputListOfEntrys = this.state.inputListOfEntrys;
     const addNewButtonTooltipText = this.state.addNewButtonTooltipText;
 
-    this.changeTooltipText(inputListOfEntrys);
-
     if (inputListOfEntrys.length > 0) {
       let penultimateElement = document.getElementsByClassName('delete' + (inputListOfEntrys.length - 1));
       penultimateElement[0].className += ' hideDeleteElement';
     }
 
     this.renderEntrys(string, inputListOfEntrys);
-  }
-
-  changeTooltipText(inputListOfEntrys) {
-    if (inputListOfEntrys.length == 1) {
-      this.setState({
-        addNewButtonTooltipText: 'Start the day with a new entry...'
-      });
-    } else {
-      this.setState({
-        addNewButtonTooltipText: 'Add new entry...'
-      });
-    }
   }
 
   renderEntrys(string, inputListOfEntrys) {
