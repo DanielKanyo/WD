@@ -25,27 +25,27 @@ class InputMeeting extends React.Component {
     return (
       <div className={"newDiaryEntry meetingEntry entry" + this.props.entryIndexProp}>
         {/* start time input */}
-        <div className={"inputContainer startTimeContainer startMeeting meeting" + this.props.entryIndexProp} data-tip="Start Time...">
+        <div className={"inputContainer startTimeContainer startMeeting startMeeting" + this.props.entryIndexProp} data-tip="Start Time...">
           <ClockIcon className="newEntryIcon clockIcon clockMeetingIcon" />
           <TimePicker className="lunchTP" placeholder="Start Time..." showSecond={false} defaultOpenValue={now} minuteStep={5} />
         </div>
         {/* project name input */}
         <div className={"inputContainer projectContainerMeeting projectmeeting" + this.props.entryIndexProp} data-tip="Project name...">
           <FolderOutlineIcon className="newEntryIcon projectFolderIcon projectMeetingIcon" />
-          <input placeholder="Project..." type="text" className="newEntryInput projectInput projectMeetingInput" />
+          <input placeholder="Project..." type="text" className={"newEntryInput projectInput projectMeetingInput proMeIn" + this.props.entryIndexProp} />
         </div>
         {/* product owner input */}
         <div className={"inputContainer productOwnerContainer owner" + this.props.entryIndexProp} data-tip="Product owner...">
           <AccountMultipleIcon className="newEntryIcon productOwnerIcon ownerMeetingIcon" />
-          <input placeholder="Product owner..." type="text" className="newEntryInput ownerInput ownerMeetingInput" />
+          <input placeholder="Product owner..." type="text" className={"newEntryInput ownerInput ownerMeetingInput owMeIn" + this.props.entryIndexProp} />
         </div>
         {/* meeting input */}
         <div className={"inputContainer meetingContainer meeting" + this.props.entryIndexProp} >
           <PhoneIcon className="newEntryIcon meetingIcon" />
-          <input value="Meeting" type="text" className="newEntryInput meetingInput" disabled />
+          <input value="Meeting" type="text" className={"newEntryInput meetingInput meIn" + this.props.entryIndexProp} disabled />
         </div>
         {/* end time input */}
-        <div className={"inputContainer endTimeContainer endMeeting meeting" + this.props.entryIndexProp} data-tip="End Time...">
+        <div className={"inputContainer endTimeContainer endMeeting endMeeting" + this.props.entryIndexProp} data-tip="End Time...">
           <ClockAlertIcon className="newEntryIcon clockIcon clockMeetingIcon" />
           <TimePicker placeholder="End Time..." showSecond={false} defaultOpenValue={now} minuteStep={5} />
         </div>

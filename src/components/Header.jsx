@@ -64,18 +64,9 @@ class Header extends React.Component {
               <TumblrReblogIcon className={"menuBtnIcon loginIco " + selectedIcon["login"]} />
               <div className={"menuBtnText " + selectedIcon["login"]}>Login</div>
             </button>
-            {/* THROWBACK BUTTON */}
-            <button className="menuBtn ThrowbackBtn" onClick={function () {
-              this.handleUpdateIndexView(3);
-              this.changeClass('throwback')
-            }.bind(this)
-            }>
-              <CalendarIcon className={"menuBtnIcon throwbackIco " + selectedIcon["throwback"]} />
-              <div className={"menuBtnText " + selectedIcon["throwback"]}>Throwback</div>
-            </button>
             {/* DIAGRAM BUTTON */}
             <button className="menuBtn DiagramBtn" onClick={function () {
-              this.handleUpdateIndexView(2);
+              this.handleUpdateIndexView(3);
               this.changeClass('diagram')
             }.bind(this)
             }>
@@ -84,12 +75,21 @@ class Header extends React.Component {
             </button>
             {/* ABOUT BUTTON */}
             <button className="menuBtn AboutBtn" onClick={function () {
-              this.handleUpdateIndexView(1);
+              this.handleUpdateIndexView(2);
               this.changeClass('about')
             }.bind(this)
             }>
               <InformationOutlineIcon className={"menuBtnIcon " + selectedIcon["about"]} />
               <div className={"menuBtnText " + selectedIcon["about"]}>About</div>
+            </button>
+            {/* THROWBACK BUTTON */}
+            <button className="menuBtn ThrowbackBtn" onClick={function () {
+              this.handleUpdateIndexView(1);
+              this.changeClass('throwback')
+            }.bind(this)
+            }>
+              <CalendarIcon className={"menuBtnIcon throwbackIco " + selectedIcon["throwback"]} />
+              <div className={"menuBtnText " + selectedIcon["throwback"]}>Throwback</div>
             </button>
             {/* DIARY BUTTON */}
             <button className="menuBtn DiaryBtn" onClick={function () {

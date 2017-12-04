@@ -195,16 +195,48 @@ class Diary extends React.Component {
   }
 
   getMeetingData(inputListOfEntrys, index, entryType) {
+    let dataObject;
+    let meetingStartInputVal, projectMeetingInputVal, ownerMeetingInputVal, descriptInputVal, meetingEndInputVal;
 
+    let meetingTimePickerStart = document.getElementsByClassName('startMeeting' + index);
+    meetingStartInputVal = meetingTimePickerStart[0].children[1].children[0].value;
+
+    projectMeetingInputVal = document.getElementsByClassName('proMeIn' + index)[0].value;
+    ownerMeetingInputVal = document.getElementsByClassName('owMeIn' + index)[0].value;
+    descriptInputVal = document.getElementsByClassName('meIn' + index)[0].value;
+
+    let meetingTimePickerEnd = document.getElementsByClassName('endMeeting' + index);
+    meetingEndInputVal = meetingTimePickerEnd[0].children[1].children[0].value;
+
+    if (!meetingStartInputVal || !projectMeetingInputVal || !ownerMeetingInputVal || !descriptInputVal || !meetingEndInputVal) {
+      this.warning('Fill the input fields...');
+      return false;
+    } else {
+
+      let dateString = document.getElementsByClassName('datePickerInput')[0].value;
+      let date = new Date(dateString);
+
+      dataObject = {
+        startTime: meetingStartInputVal,
+        project: projectMeetingInputVal,
+        productOwner: ownerMeetingInputVal,
+        description: descriptInputVal,
+        endTime: meetingEndInputVal,
+        date: date,
+        entryType: entryType
+      };
+
+      return dataObject;
+    }
   }
 
   getLunchData(inputListOfEntrys, index, entryType) {
-
+    let dataObject;
   }
 
   //save data to the database
   ajaxCallToSave(dataToSend) {
-
+    console.log('yes');
     Request.post('api/diary').send(dataToSend).set('Accept', 'application/json').end(function (err, res) {
       if (err || !res.ok) {
         notify.show('Error!', 'error', 5000);
