@@ -23,17 +23,17 @@ class InputLunch extends React.Component {
     return (
       <div className={"newDiaryEntry lunchEntry entry" + this.props.entryIndexProp}>
         {/* start time input */}
-        <div className={"inputContainer startTimeContainer startLunch lunch" + this.props.entryIndexProp} data-tip="Start Time...">
+        <div className={"inputContainer startTimeContainer startLunch slunch" + this.props.entryIndexProp} data-tip="Start Time...">
           <ClockIcon className="newEntryIcon clockIcon clockLunchIcon" />
           <TimePicker className="lunchTP" placeholder="Start Time..." showSecond={false} defaultOpenValue={now} minuteStep={5} />
         </div>
         {/* lunch input */}
         <div className={"inputContainer lunchContainer lunch" + this.props.entryIndexProp} >
           <SilverwareIcon className="newEntryIcon lunchIcon" />
-          <input value="Lunch" type="text" className="newEntryInput lunchInput" disabled />
+          <input value="Lunch" type="text" className={"newEntryInput lunchInput lunchDes" + this.props.entryIndexProp} disabled />
         </div>
         {/* end time input */}
-        <div className={"inputContainer endTimeContainer endLunch lunch" + this.props.entryIndexProp} data-tip="End Time...">
+        <div className={"inputContainer endTimeContainer endLunch elunch" + this.props.entryIndexProp} data-tip="End Time...">
           <ClockAlertIcon className="newEntryIcon clockIcon clockLunchIcon" />
           <TimePicker placeholder="End Time..." showSecond={false} defaultOpenValue={now} minuteStep={5} />
         </div>

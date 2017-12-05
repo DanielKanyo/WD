@@ -25,7 +25,7 @@ class InputMeeting extends React.Component {
     return (
       <div className={"newDiaryEntry meetingEntry entry" + this.props.entryIndexProp}>
         {/* start time input */}
-        <div className={"inputContainer startTimeContainer startMeeting startMeeting" + this.props.entryIndexProp} data-tip="Start Time...">
+        <div className={"inputContainer startTimeContainer startMeeting sMeeting" + this.props.entryIndexProp} data-tip="Start Time...">
           <ClockIcon className="newEntryIcon clockIcon clockMeetingIcon" />
           <TimePicker className="lunchTP" placeholder="Start Time..." showSecond={false} defaultOpenValue={now} minuteStep={5} />
         </div>
@@ -45,7 +45,7 @@ class InputMeeting extends React.Component {
           <input value="Meeting" type="text" className={"newEntryInput meetingInput meIn" + this.props.entryIndexProp} disabled />
         </div>
         {/* end time input */}
-        <div className={"inputContainer endTimeContainer endMeeting endMeeting" + this.props.entryIndexProp} data-tip="End Time...">
+        <div className={"inputContainer endTimeContainer endMeeting eMeeting" + this.props.entryIndexProp} data-tip="End Time...">
           <ClockAlertIcon className="newEntryIcon clockIcon clockMeetingIcon" />
           <TimePicker placeholder="End Time..." showSecond={false} defaultOpenValue={now} minuteStep={5} />
         </div>

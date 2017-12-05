@@ -47,6 +47,7 @@ class Diary extends React.Component {
     this.getLunchData = this.getLunchData.bind(this);
     this.ajaxCallToSave = this.ajaxCallToSave.bind(this);
     this.warning = this.warning.bind(this);
+    this.success = this.success.bind(this);
     this.checkIsThereAnyEntry = this.checkIsThereAnyEntry.bind(this);
     this.deleteEntrys = this.deleteEntrys.bind(this);
     this.lockEntrys = this.lockEntrys.bind(this);
@@ -117,6 +118,10 @@ class Diary extends React.Component {
 
   saveEntrys() {
     const inputListOfEntrys = this.state.inputListOfEntrys;
+
+    if (inputListOfEntrys.length == 0) {
+      this.warning('Nothing to save...!');
+    }
 
     inputListOfEntrys.map((element, index) => {
       let entryType = element.type.name;
@@ -198,14 +203,14 @@ class Diary extends React.Component {
     let dataObject;
     let meetingStartInputVal, projectMeetingInputVal, ownerMeetingInputVal, descriptInputVal, meetingEndInputVal;
 
-    let meetingTimePickerStart = document.getElementsByClassName('startMeeting' + index);
+    let meetingTimePickerStart = document.getElementsByClassName('sMeeting' + index);
     meetingStartInputVal = meetingTimePickerStart[0].children[1].children[0].value;
 
     projectMeetingInputVal = document.getElementsByClassName('proMeIn' + index)[0].value;
     ownerMeetingInputVal = document.getElementsByClassName('owMeIn' + index)[0].value;
     descriptInputVal = document.getElementsByClassName('meIn' + index)[0].value;
 
-    let meetingTimePickerEnd = document.getElementsByClassName('endMeeting' + index);
+    let meetingTimePickerEnd = document.getElementsByClassName('eMeeting' + index);
     meetingEndInputVal = meetingTimePickerEnd[0].children[1].children[0].value;
 
     if (!meetingStartInputVal || !projectMeetingInputVal || !ownerMeetingInputVal || !descriptInputVal || !meetingEndInputVal) {
@@ -232,11 +237,39 @@ class Diary extends React.Component {
 
   getLunchData(inputListOfEntrys, index, entryType) {
     let dataObject;
+    let lunchStartInputVal, descriptInputVal, lunchEndInputVal;
+
+    let lunchTimePickerStart = document.getElementsByClassName('slunch' + index);
+    lunchStartInputVal = lunchTimePickerStart[0].children[1].children[0].value;
+
+    descriptInputVal = document.getElementsByClassName('lunchDes' + index)[0].value;
+
+    let lunchTimePickerEnd = document.getElementsByClassName('elunch' + index);
+    lunchEndInputVal = lunchTimePickerEnd[0].children[1].children[0].value;
+
+    if (!lunchStartInputVal || !descriptInputVal || !lunchEndInputVal) {
+      this.warning('Fill the input fields...');
+      return false;
+    } else {
+
+      let dateString = document.getElementsByClassName('datePickerInput')[0].value;
+      let date = new Date(dateString);
+
+      dataObject = {
+        startTime: lunchStartInputVal,
+        description: descriptInputVal,
+        endTime: lunchEndInputVal,
+        date: date,
+        entryType: entryType
+      };
+
+      return dataObject;
+    }
+
   }
 
   //save data to the database
   ajaxCallToSave(dataToSend) {
-    console.log('yes');
     Request.post('api/diary').send(dataToSend).set('Accept', 'application/json').end(function (err, res) {
       if (err || !res.ok) {
         notify.show('Error!', 'error', 5000);
@@ -245,10 +278,7 @@ class Diary extends React.Component {
         toastSpan.className += ' toastStyle';
 
       } else {
-        notify.show('Success!', 'success', 5000);
-        let toastNotification = document.getElementsByClassName('toast-notification');
-        let toastSpan = toastNotification[0].children[0];
-        toastSpan.className += ' toastStyle';
+        this.success('Success!');
       }
     });
   }
@@ -261,8 +291,15 @@ class Diary extends React.Component {
     toastSpan.className += ' toastStyle';
   }
 
-  lockEntrys() {
+  success(successInfo) {
+    notify.show(successInfo, 'success', 5000);
+    let toastNotification = document.getElementsByClassName('toast-notification');
+    let toastSpan = toastNotification[0].children[0];
+    toastSpan.className += ' toastStyle';
+  }
 
+  lockEntrys() {
+    console.log('lock');
   }
 
   render() {
