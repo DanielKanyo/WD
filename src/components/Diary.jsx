@@ -17,6 +17,8 @@ import Tools from './Tools.jsx';
 import Notifications, { notify } from 'react-notify-toast';
 /** modal */
 import Modal from 'react-modal';
+/* font awesome */
+import FontAwesome from 'react-fontawesome';
 
 const customStyles = {
   content: {
@@ -36,7 +38,11 @@ class Diary extends React.Component {
     this.state = {
       inputListOfEntrys: [],
       addNewButtonTooltipText: 'Add new entry...',
-      modalIsOpen: false
+      modalIsOpen: false,
+      modalTitle: 'title',
+      modalExplanation: 'explanation',
+      modalIcon: 'icon',
+      modalText: 'text'
     };
     this.addNewEntry = this.addNewEntry.bind(this);
     this.deleteCurrentEntry = this.deleteCurrentEntry.bind(this);
@@ -56,8 +62,16 @@ class Diary extends React.Component {
     this.closeModal = this.closeModal.bind(this);
   }
 
-  openModal() {
-    this.setState({ modalIsOpen: true });
+  openModal(type) {
+    if (type == 'delete') {
+      this.setState({
+        modalIsOpen: true,
+        modalTitle: 'Are you sure?',
+        modalExplanation: 'If you click on the trash bin button, you will lost all your entries...',
+        modalIcon: 'ban',
+        modalText: 'Delete...'
+      });
+    }
   }
 
   closeModal() {
@@ -142,13 +156,13 @@ class Diary extends React.Component {
     });
   }
 
-  checkIsThereAnyEntry() {
+  checkIsThereAnyEntry(type) {
     const inputListOfEntrys = this.state.inputListOfEntrys;
 
     if (inputListOfEntrys.length == 0) {
       this.warning('No entry...');
     } else {
-      this.openModal();
+      this.openModal(type);
     }
   }
 
@@ -304,6 +318,7 @@ class Diary extends React.Component {
 
   render() {
     const addNewButtonTooltipText = this.state.addNewButtonTooltipText;
+
     return (
       <div className="diaryContent">
         <div className="tools">
@@ -333,7 +348,7 @@ class Diary extends React.Component {
             <PlusIcon />
           </button>
           {/* add lunch */}
-          <button className="addNewBtn plusluch"
+          <button className="addNewBtn pluslunch"
             onClick={(e) => this.addNewEntry(e, 'lunch')}
             data-tip='New lunch entry...'
             data-delay-show='500'>
@@ -351,15 +366,16 @@ class Diary extends React.Component {
           className="Modal"
         >
 
-          <div className="modalTitle">Are you sure?</div>
+          <div className="modalTitle">{this.state.modalTitle}</div>
           <div className="modalCloseContainer">
             <button className="modalCloseBtn" onClick={this.closeModal}><CloseIcon /></button>
           </div>
           <div className="modalExplainContainer">
-            <p>If you click on the trash bin button, you will lost all your entries...</p>
+            <p>{this.state.modalExplanation}</p>
           </div>
-          <button className="modalDeleteBtn" onClick={this.deleteEntrys.bind(this)}>
-            <DeleteIcon className="modalDeleteIco" />
+          <button className="modalBtn" onClick={this.deleteEntrys.bind(this)}>
+            <FontAwesome name={this.state.modalIcon} className="fontAwesomeIcon" /> 
+            {this.state.modalText}
           </button>
         </Modal>
 

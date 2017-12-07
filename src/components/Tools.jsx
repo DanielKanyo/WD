@@ -13,7 +13,8 @@ class Tools extends React.Component {
   }
 
   handleCheckIsThereAnyEntry() {
-    this.props.checkIsThereAnyEntry();
+    let type = 'delete';
+    this.props.checkIsThereAnyEntry(type);
   }
 
   handleLockEntrys() {

@@ -21,7 +21,7 @@ class InputMeeting extends React.Component {
   }
 
   render() {
-    const now = moment().hour(12).minute(0);
+    const now = moment();
     return (
       <div className={"newDiaryEntry meetingEntry entry" + this.props.entryIndexProp}>
         {/* start time input */}

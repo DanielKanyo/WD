@@ -33,7 +33,9 @@ body {
 .menuBtn {
   float: right;
   border: none;
-  height: 60px;
+  border-radius: 3px;
+  margin: 6px 0px;
+  height: 47px;
   outline: none;
   color: #f7f1e3;
   background: none;
@@ -111,7 +113,8 @@ body {
 .addNewContainer {
   float: left;
   width: 100%;
-  margin-bottom: 15px; }
+  margin-bottom: 15px;
+  border-radius: 3px; }
 
 .addNewBtn {
   width: 33%;
@@ -122,7 +125,16 @@ body {
   fill: #2f3032;
   outline: none; }
 
+.plusmeeting {
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px; }
+
+.pluslunch {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px; }
+
 .pluswork {
+  border-radius: 0px;
   width: 34%; }
 
 .pluswork:hover {
@@ -131,7 +143,7 @@ body {
   cursor: pointer;
   border-bottom: 1px solid #00dce8; }
 
-.plusluch:hover {
+.pluslunch:hover {
   background: rgba(81, 85, 89, 0.6);
   fill: #ffc300;
   cursor: pointer;
@@ -726,23 +738,21 @@ li.rc-time-picker-panel-select-option-disabled:hover {
   text-align: justify;
   font-size: 0.8em; }
 
-.modalDeleteBtn {
+.modalBtn {
   width: 100%;
-  fill: #00dce8;
+  color: white;
+  font-size: 13px;
   background: none;
   margin-top: 5px;
   border: none;
   background: #3b3d3f;
   outline: none;
-  padding: 6px; }
+  padding: 10px; }
 
-.modalDeleteBtn:hover {
+.modalBtn:hover {
   cursor: pointer;
   fill: #f7f1e3;
   background: rgba(81, 85, 89, 0.6); }
-
-.modalDeleteIco {
-  width: 20px; }
 
 .ReactModalPortal > div {
   opacity: 0; }
@@ -764,3 +774,7 @@ li.rc-time-picker-panel-select-option-disabled:hover {
   height: 100%;
   background: black;
   z-index: 12; }
+
+.fontAwesomeIcon {
+  color: #f7f1e3;
+  margin-right: 8px; }

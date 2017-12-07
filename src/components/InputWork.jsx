@@ -23,7 +23,7 @@ class InputWork extends React.Component {
   }
 
   render() {
-    const now = moment().hour(8).minute(0);
+    const now = moment();
     return (
       <div className={"newDiaryEntry workEntry entry" + this.props.entryIndexProp}>
         {/* start time input */}
