@@ -42,7 +42,8 @@ class Diary extends React.Component {
       modalTitle: 'title',
       modalExplanation: 'explanation',
       modalIcon: 'icon',
-      modalText: 'text'
+      modalText: 'text',
+      modalCloseBtnToggleHide: 'value'
     };
     this.addNewEntry = this.addNewEntry.bind(this);
     this.deleteCurrentEntry = this.deleteCurrentEntry.bind(this);
@@ -60,6 +61,7 @@ class Diary extends React.Component {
 
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.handleModalClick = this.handleModalClick.bind(this);
   }
 
   openModal(type) {
@@ -67,9 +69,19 @@ class Diary extends React.Component {
       this.setState({
         modalIsOpen: true,
         modalTitle: 'Are you sure?',
-        modalExplanation: 'If you click on the trash bin button, you will lost all your entries...',
+        modalExplanation: 'If you click on the delete button, you will lost all your entries...',
         modalIcon: 'ban',
-        modalText: 'Delete...'
+        modalText: 'Delete...',
+        modalCloseBtnToggleHide: 'show'
+      });
+    } else if (type == 'lock') {
+      this.setState({
+        modalIsOpen: true,
+        modalTitle: 'Screen locked!',
+        modalExplanation: 'If you click on the unlock button, you can continue with the editing...',
+        modalIcon: 'unlock',
+        modalText: 'Unlock...',
+        modalCloseBtnToggleHide: 'hide'
       });
     }
   }
@@ -312,8 +324,24 @@ class Diary extends React.Component {
     toastSpan.className += ' toastStyle';
   }
 
-  lockEntrys() {
-    console.log('lock');
+  lockEntrys(type) {
+    let inputListOfEntrys = this.state.inputListOfEntrys;
+    
+    if (inputListOfEntrys.length == 0) {
+      this.warning('The locking is unnecessary...');
+    } else {
+      this.openModal(type);
+    }
+  }
+
+  handleModalClick(e) {
+    let modalBtnValue = e.target.innerText;
+
+    if (modalBtnValue == 'Delete...') {
+      this.deleteEntrys();
+    } else if (modalBtnValue == 'Unlock...') {
+      this.closeModal();
+    }
   }
 
   render() {
@@ -368,12 +396,12 @@ class Diary extends React.Component {
 
           <div className="modalTitle">{this.state.modalTitle}</div>
           <div className="modalCloseContainer">
-            <button className="modalCloseBtn" onClick={this.closeModal}><CloseIcon /></button>
+            <button className={"modalCloseBtn " + this.state.modalCloseBtnToggleHide} onClick={this.closeModal}><CloseIcon /></button>
           </div>
           <div className="modalExplainContainer">
             <p>{this.state.modalExplanation}</p>
           </div>
-          <button className="modalBtn" onClick={this.deleteEntrys.bind(this)}>
+          <button className="modalBtn" onClick={this.handleModalClick}>
             <FontAwesome name={this.state.modalIcon} className="fontAwesomeIcon" /> 
             {this.state.modalText}
           </button>

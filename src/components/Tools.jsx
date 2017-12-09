@@ -18,7 +18,8 @@ class Tools extends React.Component {
   }
 
   handleLockEntrys() {
-    this.props.lockEntrys();
+    let type = 'lock';
+    this.props.lockEntrys(type);
   }
 
   render() {
