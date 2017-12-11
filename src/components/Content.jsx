@@ -4,6 +4,7 @@ import ReactTooltip from 'react-tooltip';
 import SwipeableViews from 'react-swipeable-views';
 
 import Diary from './Diary.jsx';
+import About from './About.jsx';
 
 class Content extends React.Component {
   render() {
@@ -14,13 +15,13 @@ class Content extends React.Component {
           <Diary />
         </div>
         <div className="slideContent">
-          about
-        </div>
-        <div className="slideContent">
-          statistics
-        </div>
-        <div className="slideContent">
           throwback
+        </div>
+        <div className="slideContent">
+          <About />
+        </div>
+        <div className="slideContent">
+          statistic
         </div>
         <div className="slideContent">
           login

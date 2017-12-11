@@ -33,17 +33,19 @@ const customStyles = {
 
 class Diary extends React.Component {
 
+  /** constructor */
   constructor(props) {
     super(props);
     this.state = {
       inputListOfEntrys: [],
-      addNewButtonTooltipText: 'Add new entry...',
       modalIsOpen: false,
       modalTitle: 'title',
       modalExplanation: 'explanation',
       modalIcon: 'icon',
       modalText: 'text',
-      modalCloseBtnToggleHide: 'value'
+      modalCloseBtnToggleHide: 'value',
+      modalInputToggleHide: 'value',
+      modalInputPlaceholder: 'value'
     };
     this.addNewEntry = this.addNewEntry.bind(this);
     this.deleteCurrentEntry = this.deleteCurrentEntry.bind(this);
@@ -53,8 +55,10 @@ class Diary extends React.Component {
     this.getMeetingData = this.getMeetingData.bind(this);
     this.getLunchData = this.getLunchData.bind(this);
     this.ajaxCallToSave = this.ajaxCallToSave.bind(this);
+
     this.warning = this.warning.bind(this);
     this.success = this.success.bind(this);
+
     this.checkIsThereAnyEntry = this.checkIsThereAnyEntry.bind(this);
     this.deleteEntrys = this.deleteEntrys.bind(this);
     this.lockEntrys = this.lockEntrys.bind(this);
@@ -64,6 +68,7 @@ class Diary extends React.Component {
     this.handleModalClick = this.handleModalClick.bind(this);
   }
 
+  /** open modal and set the fields */
   openModal(type) {
     if (type == 'delete') {
       this.setState({
@@ -72,7 +77,8 @@ class Diary extends React.Component {
         modalExplanation: 'If you click on the delete button, you will lost all your entries...',
         modalIcon: 'ban',
         modalText: 'Delete...',
-        modalCloseBtnToggleHide: 'show'
+        modalCloseBtnToggleHide: 'show',
+        modalInputToggleHide: 'hide'
       });
     } else if (type == 'lock') {
       this.setState({
@@ -81,18 +87,21 @@ class Diary extends React.Component {
         modalExplanation: 'If you click on the unlock button, you can continue with the editing...',
         modalIcon: 'unlock',
         modalText: 'Unlock...',
-        modalCloseBtnToggleHide: 'hide'
+        modalCloseBtnToggleHide: 'hide',
+        modalInputToggleHide: 'show',
+        modalInputPlaceholder: 'Password...'
       });
     }
   }
 
+  /** close modal */
   closeModal() {
     this.setState({ modalIsOpen: false });
   }
 
+  /** add new entry and hide the penultimate delete button  */
   addNewEntry(event, string) {
     const inputListOfEntrys = this.state.inputListOfEntrys;
-    const addNewButtonTooltipText = this.state.addNewButtonTooltipText;
 
     if (inputListOfEntrys.length > 0) {
       let penultimateElement = document.getElementsByClassName('delete' + (inputListOfEntrys.length - 1));
@@ -102,6 +111,7 @@ class Diary extends React.Component {
     this.renderEntrys(string, inputListOfEntrys);
   }
 
+  /** render the entrys - work, lunch and meeting entrys */
   renderEntrys(string, inputListOfEntrys) {
     if (string == 'work') {
       this.setState({
@@ -127,6 +137,7 @@ class Diary extends React.Component {
     }
   }
 
+  /** delete the most recent entry */
   deleteCurrentEntry(index) {
     let inputListOfEntrys = this.state.inputListOfEntrys;
     let penultimateElement;
@@ -142,6 +153,7 @@ class Diary extends React.Component {
     });
   }
 
+  /** data preparing for the save */
   saveEntrys() {
     const inputListOfEntrys = this.state.inputListOfEntrys;
 
@@ -168,25 +180,22 @@ class Diary extends React.Component {
     });
   }
 
+  /** warning if the array is empty, if it's not, open the modal */
   checkIsThereAnyEntry(type) {
     const inputListOfEntrys = this.state.inputListOfEntrys;
 
     if (inputListOfEntrys.length == 0) {
-      this.warning('No entry...');
+      if (type == 'delete') {
+        this.warning('There is no entry that can be deleted...');
+      } else if (type == 'lock') {
+        this.warning('The locking is unnecessary...');
+      }
     } else {
       this.openModal(type);
     }
   }
 
-  deleteEntrys() {
-    const inputListOfEntrys = this.state.inputListOfEntrys;
-
-    this.setState({
-      inputListOfEntrys: []
-    });
-    this.closeModal();
-  }
-
+  /** get data from the input fields - work */
   getWorkData(inputListOfEntrys, index, entryType) {
     let dataObject;
     let workStartInputVal, projectInputVal, ownerInputVal, taskNumInputVal, descriptInputVal, workEndInputVal;
@@ -225,6 +234,7 @@ class Diary extends React.Component {
     }
   }
 
+  /** get data from the input fields - meeting */
   getMeetingData(inputListOfEntrys, index, entryType) {
     let dataObject;
     let meetingStartInputVal, projectMeetingInputVal, ownerMeetingInputVal, descriptInputVal, meetingEndInputVal;
@@ -261,6 +271,7 @@ class Diary extends React.Component {
     }
   }
 
+  /** get data from the input fields - lunch */
   getLunchData(inputListOfEntrys, index, entryType) {
     let dataObject;
     let lunchStartInputVal, descriptInputVal, lunchEndInputVal;
@@ -294,7 +305,7 @@ class Diary extends React.Component {
 
   }
 
-  //save data to the database
+  /** save data to the database */
   ajaxCallToSave(dataToSend) {
     Request.post('api/diary').send(dataToSend).set('Accept', 'application/json').end(function (err, res) {
       if (err || !res.ok) {
@@ -309,6 +320,7 @@ class Diary extends React.Component {
     });
   }
 
+  /** warning toast */
   warning(warningInfo) {
     let myColor = { background: '#ff6600' }
     notify.show('Warning! ' + warningInfo, 'custom', 3000, myColor);
@@ -317,6 +329,7 @@ class Diary extends React.Component {
     toastSpan.className += ' toastStyle';
   }
 
+  /** sucess toast */
   success(successInfo) {
     notify.show(successInfo, 'success', 5000);
     let toastNotification = document.getElementsByClassName('toast-notification');
@@ -324,23 +337,45 @@ class Diary extends React.Component {
     toastSpan.className += ' toastStyle';
   }
 
+  /** delete all entrys */
+  deleteEntrys() {
+    const inputListOfEntrys = this.state.inputListOfEntrys;
+
+    this.setState({
+      inputListOfEntrys: []
+    });
+    this.closeModal();
+  }
+
+  /** unlock function */
   lockEntrys(type) {
-    let inputListOfEntrys = this.state.inputListOfEntrys;
-    
-    if (inputListOfEntrys.length == 0) {
-      this.warning('The locking is unnecessary...');
+    let adminPassword = 'admin';
+    let modalInput = document.getElementsByClassName('modalInput')[0];
+    let modalInputValue = modalInput.value;
+
+    if (modalInputValue == '') {
+      this.setState({
+        modalInputPlaceholder: 'Fill this input field...'
+      });
+      modalInput.style.borderBottomColor = "red";
+    } else if (modalInputValue != adminPassword) {
+      this.setState({
+        modalInputPlaceholder: 'Wrong password...'
+      });
+      modalInput.style.borderBottomColor = "red";
     } else {
-      this.openModal(type);
+      this.closeModal();
     }
   }
 
+  /** the function of the button on the modal */
   handleModalClick(e) {
     let modalBtnValue = e.target.innerText;
 
     if (modalBtnValue == 'Delete...') {
       this.deleteEntrys();
     } else if (modalBtnValue == 'Unlock...') {
-      this.closeModal();
+      this.lockEntrys();
     }
   }
 
@@ -352,8 +387,7 @@ class Diary extends React.Component {
         <div className="tools">
           <Tools
             saveEntrys={this.saveEntrys.bind(this)}
-            checkIsThereAnyEntry={this.checkIsThereAnyEntry.bind(this)}
-            lockEntrys={this.lockEntrys.bind(this)} />
+            checkIsThereAnyEntry={this.checkIsThereAnyEntry.bind(this)} />
         </div>
 
         {this.state.inputListOfEntrys.map((input, index) => {
@@ -364,22 +398,22 @@ class Diary extends React.Component {
           {/* add meeting */}
           <button className="addNewBtn plusmeeting"
             onClick={(e) => this.addNewEntry(e, 'meeting')}
-            data-tip='New daily meeting entry...'
-            data-delay-show='500'>
+            data-tip="New daily meeting entry..."
+            data-delay-show="500">
             <AccountMultipleIcon />
           </button>
           {/* add work */}
           <button className="addNewBtn pluswork"
-            onClick={(e) => this.addNewEntry(e, 'work')}
-            data-tip={addNewButtonTooltipText}
-            data-delay-show='500'>
+            onClick={(e) => this.addNewEntry(e, "work")}
+            data-tip="Add new entry..."
+            data-delay-show="500">
             <PlusIcon />
           </button>
           {/* add lunch */}
           <button className="addNewBtn pluslunch"
-            onClick={(e) => this.addNewEntry(e, 'lunch')}
-            data-tip='New lunch entry...'
-            data-delay-show='500'>
+            onClick={(e) => this.addNewEntry(e, "lunch")}
+            data-tip="New lunch entry..."
+            data-delay-show="500">
             <SilverwareIcon />
           </button>
 
@@ -392,17 +426,28 @@ class Diary extends React.Component {
           contentLabel="Example Modal"
           overlayClassName="Overlay"
           className="Modal"
+          shouldCloseOnOverlayClick={false}
+          closeTimeoutMS={400}
         >
 
           <div className="modalTitle">{this.state.modalTitle}</div>
           <div className="modalCloseContainer">
-            <button className={"modalCloseBtn " + this.state.modalCloseBtnToggleHide} onClick={this.closeModal}><CloseIcon /></button>
+            <button className={"modalCloseBtn " + this.state.modalCloseBtnToggleHide} onClick={this.closeModal}>
+              <CloseIcon />
+            </button>
           </div>
           <div className="modalExplainContainer">
             <p>{this.state.modalExplanation}</p>
           </div>
+          <div className="passwdContainer">
+            <input
+              type="password"
+              className={"modalInput " + this.state.modalInputToggleHide}
+              placeholder={this.state.modalInputPlaceholder}
+              autoFocus />
+          </div>
           <button className="modalBtn" onClick={this.handleModalClick}>
-            <FontAwesome name={this.state.modalIcon} className="fontAwesomeIcon" /> 
+            <FontAwesome name={this.state.modalIcon} className="fontAwesomeIcon" />
             {this.state.modalText}
           </button>
         </Modal>
